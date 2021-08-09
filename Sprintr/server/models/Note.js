@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-export const BacklogItem = new Schema(
+export const Note = new Schema(
   {
 
     body: { type: String, required: true },
@@ -10,3 +10,10 @@ export const BacklogItem = new Schema(
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
+
+Note.virtual('creator', {
+  localField: 'creatorId',
+  ref: 'Account',
+  foreignField: '_id',
+  justOne: true
+})

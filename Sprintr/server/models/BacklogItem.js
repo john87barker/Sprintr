@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { Project } from './Project'
 const Schema = mongoose.Schema
 
 export const BacklogItem = new Schema(
@@ -12,3 +13,15 @@ export const BacklogItem = new Schema(
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
+BacklogItem.virtual('creator', {
+  localField: 'creatorId',
+  ref: 'Account',
+  foreignField: '_id',
+  justOne: true
+})
+Project.virtual('project', {
+  localField: 'projectId',
+  ref: 'Project',
+  foreignField: '_id',
+  justOne: true
+})

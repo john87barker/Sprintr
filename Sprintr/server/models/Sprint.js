@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { Project } from './Project'
 const Schema = mongoose.Schema
 
 export const Sprint = new Schema(
@@ -12,3 +13,16 @@ export const Sprint = new Schema(
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
+
+Sprint.virtual('creator', {
+  localField: 'creatorId',
+  ref: 'Account',
+  foreignField: '_id',
+  justOne: true
+})
+Project.virtual('project', {
+  localField: 'projectId',
+  ref: 'Project',
+  foreignField: '_id',
+  justOne: true
+})
