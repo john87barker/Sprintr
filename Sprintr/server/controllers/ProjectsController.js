@@ -65,6 +65,7 @@ export class ProjectsController extends BaseController {
   async edit(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
+      req.body.id = req.params.id
       const project = await projectsService.edit(req.body)
       res.send(project)
     } catch (error) {

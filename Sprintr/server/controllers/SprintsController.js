@@ -65,6 +65,7 @@ export class SprintsController extends BaseController {
   async edit(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
+      req.body.id = req.params.id
       const sprint = await sprintsService.edit(req.body)
       res.send(sprint)
     } catch (error) {

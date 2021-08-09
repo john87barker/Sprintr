@@ -65,6 +65,7 @@ export class NotesController extends BaseController {
   async edit(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
+      req.body.id = req.params.id
       const note = await notesService.edit(req.body)
       res.send(note)
     } catch (error) {

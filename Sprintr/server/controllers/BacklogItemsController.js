@@ -65,6 +65,7 @@ export class BacklogItemsController extends BaseController {
   async edit(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
+      req.body.id = req.params.id
       const backlogItem = await backlogItemsService.edit(req.body)
       res.send(backlogItem)
     } catch (error) {
