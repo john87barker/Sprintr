@@ -1,6 +1,8 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { projectsService } from '../services/ProjectsService'
 import BaseController from '../utils/BaseController'
+import { sprintsService } from '../services/SprintsService'
+import { backlogItemsService } from '../services/BacklogItemsService'
 // import Project from '../models/Project'
 
 export class ProjectsController extends BaseController {
@@ -10,8 +12,8 @@ export class ProjectsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getOne)
-      // .get('/:id/sprint', this.getBySprint)
-      // .get('/:id/backlogid', this.getByBacklogId)
+      .get('/:id/sprint', this.getSprintById)
+      .get('/:id/backlogid', this.getBacklogItemById)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.destroy)
@@ -36,21 +38,24 @@ export class ProjectsController extends BaseController {
     }
   }
 
-  // async getBySprint(req, res, next) {
-  //   try {
+  async getSprintById(req, res, next) {
+    try {
+      const sprint = await sprintsService.getSprintById({ sprintId: req.params.id })
+      res.send(sprint)
+    } catch (error) {
+      next(error)
+    }
+  }
 
-  //   } catch (error) {
-
-  //   }
-  // }
-
-  // async getByBacklogId(req, res, next) {
-  //   try {
-
-  //   } catch (error) {
-
-  //   }
-  // }
+  // NOTE not sure why getting linter error on line 53
+  async getBacklogItemById(req, res, next) {
+    try {
+      const backlogItem = await backlogItemsService.getBacklogItemById({ backlogItemId: req.params.id })
+      res.send(backlogItem)
+    } catch (error) {
+      next(error)
+    }
+  }
 
   async create(req, res, next) {
     try {
