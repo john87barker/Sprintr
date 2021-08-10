@@ -2,6 +2,10 @@ import { dbContext } from '../db/DbContext'
 import { BadRequest, Forbidden } from '../utils/Errors'
 
 class SprintsService {
+  async getSprintById(query) {
+    return await dbContext.Sprint.find(query)
+  }
+
   async getAll(query) {
     return await dbContext.Sprint.find(query).populate('creator', 'name')
   }

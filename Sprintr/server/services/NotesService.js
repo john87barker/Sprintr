@@ -2,6 +2,14 @@ import { dbContext } from '../db/DbContext'
 import { BadRequest, Forbidden } from '../utils/Errors'
 
 class NotesService {
+  async getNotesById(query) {
+    return await dbContext.Note.find(query)
+  }
+
+  async getNotesByUserId(query) {
+    return await dbContext.Note.find(query)
+  }
+
   async getAll(query) {
     return await dbContext.Note.find(query).populate('creator', 'name')
   }

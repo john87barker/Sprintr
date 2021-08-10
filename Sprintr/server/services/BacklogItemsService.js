@@ -2,6 +2,10 @@ import { dbContext } from '../db/DbContext'
 import { BadRequest, Forbidden } from '../utils/Errors'
 
 class BacklogItemsService {
+  async getBacklogItemById(query) {
+    return await dbContext.BacklogItem.find(query)
+  }
+
   async getAll(query) {
     return await dbContext.BacklogItem.find(query).populate('creator', 'name')
   }
