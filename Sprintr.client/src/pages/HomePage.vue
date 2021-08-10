@@ -7,10 +7,11 @@
           <p>a list of all your projects</p>
         </div>
         <div class="col-md-6">
-          <button type="button" class="btn btn-primary">
+          <button type="button" data-target="#createProject" data-toggle="modal" class="btn btn-primary">
             Create Project
           </button>
         </div>
+        <CreateProject />
       </div>
       <div class="row  p-5">
         <div class="col-md-12 d-flex justify-content-between">
@@ -24,15 +25,20 @@
 </template>
 
 <script>
-import { onMounted, computed } from '@vue/runtime-core'
+import { onMounted, computed, reactive } from '@vue/runtime-core'
 import ProjectsComponent from '../components/ProjectsComponent.vue'
 import { projectsService } from '../services/ProjectsService'
 import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Home',
   setup() {
+    const state = reactive({
+      dropOpen: false,
+      newProject: {}
+    })
     onMounted(async() => {
       try {
         await projectsService.getAllProjects()
@@ -42,12 +48,36 @@ export default {
       }
     })
     return {
+      state,
       projects: computed(() => AppState.projects),
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      //   async projectModal() {
+      //     const { value: formValues } = await Swal.fire({
+      //       title: 'Multiple inputs',
+      //       html:
+
+      // `<input id="name" placeholder="Name..." class="swal2-input">
+      // <textarea id="description" placeholder="Description..." class="swal2-input">`,
+      //       focusConfirm: false,
+      //       preConfirm: () => {
+      //         return [
+      //           document.getElementById('name').value,
+      //           document.getElementById('description').value
+      //         ]
+      //       }
+      //     })
+
+      //     if (formValues) {
+      //       Swal.fire(formValues)
+      //       state.newProject = formValues
+      //       this.createProject(state.newProject)
+      //     }
+      //   },
+
+      components: {
+        ProjectsComponent
+      }
     }
-  },
-  components: {
-    ProjectsComponent
   }
 }
 </script>
