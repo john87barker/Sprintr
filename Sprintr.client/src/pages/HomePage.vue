@@ -30,7 +30,7 @@ import ProjectsComponent from '../components/ProjectsComponent.vue'
 import { projectsService } from '../services/ProjectsService'
 import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 
 export default {
   name: 'Home',

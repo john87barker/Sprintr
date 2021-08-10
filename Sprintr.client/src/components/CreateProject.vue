@@ -11,13 +11,11 @@
           </button>
         </div>
         <div class="modal-body">
+          <!-- VModel -->
           <input class="form-control" type="text" id="name" placeholder="Name Project..."><br>
           <textarea class="form-control" id="description" rows="3" placeholder="Description..."></textarea>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
           <button type="submit" @click="createProject" class="btn btn-primary">
             Save changes
           </button>
@@ -41,8 +39,8 @@ export default {
     return {
       async createProject() {
         try {
-          console.log('creating post', state.newProject)
           await projectsService.createProject(state.newProject)
+          console.log('creating project in component')
           state.newProject = {}
           Pop.toast('Project Created', 'success')
         } catch (error) {

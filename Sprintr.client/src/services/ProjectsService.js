@@ -15,8 +15,12 @@ class ProjectsService {
   }
 
   async createProject(newProject) {
+    console.log('Created in service ')
     const res = await api.post('api/projects', newProject)
+    console.log('Created in service 2')
     logger.log(res.data)
+    // From Johns previous stuff
+    // ProxyState.projects = [...ProxyState.stories, new Project(res.data)]
     AppState.projects = AppState.projects.push(res.data)
     await this.getAllProjects()
   }
