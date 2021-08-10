@@ -1,13 +1,13 @@
 <template>
   <div class="component col-md-12">
     <div class="ml-5">
-      Name
+      {{ project.name }}
     </div>
     <div class="text-center">
-      Members
+      {{ project.members }}
     </div>
     <div class="mr-5">
-      Started
+      {{ project.createdAt }}
     </div>
   </div>
 </template>
