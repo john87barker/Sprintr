@@ -4,6 +4,7 @@ const { api } = './AxiosService'
 
 class ProjectsService {
   async getAllProjects() {
+    console.log('in the service')
     const res = await api.get('api/projects')
     logger.log(res.data)
     AppState.projects = res.data

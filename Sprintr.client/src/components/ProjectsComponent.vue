@@ -1,33 +1,35 @@
 <template>
   <div class="component col-md-12">
     <div class="ml-5">
-      {{ project.name }}
+      name
+      <!-- <span>{{ project.name }}</span>
+      <p>{{ project.description }}</p> -->
     </div>
     <div class="text-center">
-      {{ project.members }}
+      name
+      <!-- {{ account.name }} -->
     </div>
     <div class="mr-5">
-      {{ project.createdAt }}
+      date
+      <!-- {{ project.createdAt }} -->
     </div>
   </div>
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core'
+import { onMounted, computed } from '@vue/runtime-core'
 import { projectsService } from '../services/ProjectsService'
-
 import Pop from '../utils/Notifier'
+import { AppState } from '../AppState'
+
 export default {
-  name: 'Component',
+  name: 'ProjectsComponent',
+
   setup() {
-    onMounted(async() => {
-      try {
-        await projectsService.getAll()
-      } catch (error) {
-        Pop.toast(error, 'error')
-      }
-    })
-    return {}
+    return {
+      projects: computed(() => AppState.projects),
+      account: computed(() => AppState.account)
+    }
   },
   components: {}
 }

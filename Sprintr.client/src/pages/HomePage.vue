@@ -14,7 +14,9 @@
       </div>
       <div class="row  p-5">
         <div class="col-md-12 d-flex justify-content-between">
-          <span class="ml-5">Name</span><span>Members</span><span class="mr-5">Started</span>
+          <div>
+            <ProjectsComponent />
+          </div>
         </div>
       </div>
     </div>
@@ -22,8 +24,31 @@
 </template>
 
 <script>
+import { onMounted, computed } from '@vue/runtime-core'
+import ProjectsComponent from '../components/ProjectsComponent.vue'
+import { projectsService } from '../services/ProjectsService'
+import Pop from '../utils/Notifier'
+import { AppState } from '../AppState'
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  setup() {
+    onMounted(async() => {
+      try {
+        await projectsService.getAllProjects()
+        console.log('In mounted at home page')
+      } catch (error) {
+        Pop.toast(error, 'error')
+      }
+    })
+    return {
+      projects: computed(() => AppState.projects),
+      account: computed(() => AppState.account)
+    }
+  },
+  components: {
+    ProjectsComponent
+  }
 }
 </script>
 
