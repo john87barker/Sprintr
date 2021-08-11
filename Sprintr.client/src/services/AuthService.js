@@ -4,6 +4,7 @@ import { audience, clientId, domain } from '../env'
 import { router } from '../router'
 import { accountService } from './AccountService'
 import { api } from './AxiosService'
+import { projectsService } from './ProjectsService'
 
 export const AuthService = initialize({
   domain,
@@ -25,6 +26,7 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   AppState.user = AuthService.user
   await accountService.getAccount()
   // NOTE if there is something you want to do once the user is authenticated, place that here
+  await projectsService.getAllProjects()
 })
 
 async function refreshAuthToken(config) {

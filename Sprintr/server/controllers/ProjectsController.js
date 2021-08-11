@@ -10,14 +10,13 @@ export class ProjectsController extends BaseController {
     super('api/projects')
     this.router
       .get('', this.getAll)
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/:id', this.getOne)
       .get('/:id/sprints', this.getSprintById)
       .get('/:id/backlogiditems', this.getBacklogItemById)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.destroy)
-      // TODO move the auth back to the top
-      .use(Auth0Provider.getAuthorizedUserInfo)
   }
 
   async getAll(req, res, next) {

@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-12 procard shadow">
     <div class="row my-4">
-      <div class="col-md-4 text-left">
+      <div class="col-md-4 text-left" v-if="project">
         <b>{{ project.name }}</b>
         <p>{{ project.description }}</p>
       </div>
@@ -27,7 +27,7 @@ export default {
       required: true
     }
   },
-  setup(props) {
+  setup() {
     return {
       account: computed(() => AppState.account)
 

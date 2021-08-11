@@ -38,14 +38,14 @@ export default {
       dropOpen: false,
       newProject: {}
     })
-    onMounted(async() => {
-      try {
-        await projectsService.getAllProjects()
-        console.log('In mounted at home page')
-      } catch (error) {
-        Pop.toast(error, 'error')
-      }
-    })
+    // onMounted(async() => {
+    //   try {
+    //     await projectsService.getAllProjects()
+    //     console.log('In mounted at home page')
+    //   } catch (error) {
+    //     Pop.toast(error, 'error')
+    //   }
+    // })
     return {
       state,
       projects: computed(() => AppState.projects),
