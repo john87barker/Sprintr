@@ -30,8 +30,8 @@
           </textarea>
         </div>
         <div class="modal-footer">
-          <button type="submit" @click="createProject" class="btn btn-primary">
-            Save changes
+          <button type="submit" @click="createProject" class="btn btn-primary" data-toggle="modal" data-target="#createProject">
+            Submit Project
           </button>
         </div>
       </div>
@@ -45,10 +45,12 @@ import { projectsService } from '../services/ProjectsService'
 import Pop from '../utils/Notifier'
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'Component',
   setup() {
+    const router = useRouter()
     const state = reactive({
       newProject: {}
     })
@@ -57,11 +59,12 @@ export default {
       account: computed(() => AppState.account),
       async createProject() {
         try {
-          console.log(state.newProject)
+          const newId = await projectsService.createProject(state.newProject)
           await projectsService.createProject(state.newProject)
-          console.log('creating project in component')
+
           state.newProject = {}
           Pop.toast('Project Created', 'success')
+          router.push({ name: 'ProjectBacklogPage', params: { id: newId } })
         } catch (error) {
           Pop.toast(error, 'error')
         }

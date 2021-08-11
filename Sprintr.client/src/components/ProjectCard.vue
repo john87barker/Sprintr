@@ -1,23 +1,26 @@
 <template>
   <div class="col-md-12 procard shadow bg-secondary mb-2 rounded">
-    <div class="row my-4">
-      <div class="col-12 action text-right mb-2">
-        <button class="btn btn-outline-primary" @click="destroyProject(project.id)">
-          X
-        </button>
+    <router-link :to="{ name: 'ProjectBacklogPage', params: {id: project.id}}" @click.stop="">
+      <div class="row my-4">
+        <div class="col-12 action text-right mb-2">
+          <button class="btn btn-outline-primary" @click.stop.prevent="destroyProject(project.id)">
+            X
+          </button>
+        </div>
+        <div class="col-md-4 text-left" v-if="project">
+          <b>{{ project.name }}</b>
+          <p>{{ project.description }}</p>
+        </div>
+        <div class="text-center col-md-4">
+          {{ project.creator.name }}
+        </div>
+        <div class="col-md-4 text-right">
+          {{ project.createdAt }}
+        </div>
       </div>
-      <div class="col-md-4 text-left" v-if="project">
-        <b>{{ project.name }}</b>
-        <p>{{ project.description }}</p>
-      </div>
-      <div class="text-center col-md-4">
-        {{ project.creator.name }}
-      </div>
-      <div class="col-md-4 text-right">
-        {{ project.createdAt }}
-      </div>
-    </div>
+    </router-link>
   </div>
+
   <!-- <hr class="bg-primary"> -->
 </template>
 
