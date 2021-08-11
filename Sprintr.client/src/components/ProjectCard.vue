@@ -1,6 +1,11 @@
 <template>
   <div class="col-md-12 procard shadow">
     <div class="row my-4">
+      <div class="col-12 action text-right mb-2">
+        <button class="btn btn-outline-primary" @click="destroyProject(project.id)">
+          X
+        </button>
+      </div>
       <div class="col-md-4 text-left" v-if="project">
         <b>{{ project.name }}</b>
         <p>{{ project.description }}</p>
@@ -19,6 +24,10 @@
 <script>
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
+import Swal from 'sweetalert2/dist/sweetalert2.all'
+import { projectsService } from '../services/ProjectsService'
+import Pop from '../utils/Notifier'
+
 export default {
   name: 'ProjectCard',
   props: {
@@ -29,7 +38,31 @@ export default {
   },
   setup() {
     return {
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      async destroyProject(id) {
+        try {
+          await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success',
+                projectsService.destroyProject(id)
+              )
+            }
+          })
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      }
 
     }
   }
