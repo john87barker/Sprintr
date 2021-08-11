@@ -1,23 +1,22 @@
 <template>
   <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center row">
     <div class="col-md-12 bg-secondary shadow">
-      <div class="row mt-3 pb-3 border-bottom border-primary">
+      <div class="row mt-3 pb-3">
         <div class="col-md-6 pl-5 text-left">
           <h3> Projects</h3>
           <p>a list of all your projects</p>
         </div>
-        <div class="col-md-6">
-          <button type="button" data-target="#createProject" data-toggle="modal" class="btn btn-primary">
+        <div class="col-md-6 d-flex flex-row justify-content-end pr-5">
+          <button type="button" data-target="#createProject" data-toggle="modal" class="btn btn-primary ">
             Create Project
           </button>
         </div>
         <CreateProject />
       </div>
+      <hr class="bg-primary rounded my-0">
       <div class="row  p-5">
         <div class="col-md-12 d-flex justify-content-between">
-          <div>
-            <ProjectsComponent />
-          </div>
+          <ProjectsComponent :projects="projects" />
         </div>
       </div>
     </div>
@@ -91,4 +90,5 @@ export default {
     width: 200px;
   }
 }
+hr {width: 95% ;margin-left: auto;margin-right: auto;height: 2px; opacity: 0.5;}
 </style>
