@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade" id="createSprint" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="createBacklogItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -16,7 +16,7 @@
           <textarea class="form-control" id="description" rows="3" placeholder="Description..."></textarea>
         </div>
         <div class="modal-footer">
-          <button type="submit" @click="createSprint" class="btn btn-primary">
+          <button type="submit" @click="createBacklogItem" class="btn btn-primary">
             Save changes
           </button>
         </div>
@@ -27,7 +27,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { sprintsService } from '../services/SprintsService'
+import { backlogItemsService } from '../services/BacklogItemsService'
 import Pop from '../utils/Notifier'
 
 export default {
@@ -37,13 +37,13 @@ export default {
       newProject: {}
     })
     return {
-      async createSprint() {
+      async createBacklogItem() {
         try {
-          // TODO create sprint service
-          await sprintsService.createSprint(state.newSprint)
-          console.log('creating sprint in component')
-          state.newSprint = {}
-          Pop.toast('Sprint Created', 'success')
+          // TODO create backlogItem service
+          await backlogItemsService.createBacklogItem(state.newBacklogItem)
+          console.log('creating backlogItem in component')
+          state.newBacklogItem = {}
+          Pop.toast('BacklogItem Created', 'success')
         } catch (error) {
           Pop.toast(error, 'error')
         }
