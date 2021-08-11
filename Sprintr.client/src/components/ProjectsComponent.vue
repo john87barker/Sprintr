@@ -1,34 +1,27 @@
 <template>
-  <div class="component col-md-12">
-    <div class="ml-5">
-      name
-      <!-- <span>{{ project.name }}</span>
-      <p>{{ project.description }}</p> -->
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-between mb-3">
+      <div><h5><u>Project Name:</u></h5></div>
+      <div><h5><u>Created By:</u></h5></div>
+      <div><h5><u>Date Created:</u></h5></div>
     </div>
-    <div class="text-center">
-      name
-      <!-- {{ account.name }} -->
-    </div>
-    <div class="mr-5">
-      date
-      <!-- {{ project.createdAt }} -->
-    </div>
+    <ProjectCard v-for="p in projects" :key="p.id" :project="p" />
   </div>
 </template>
 
 <script>
-import { onMounted, computed } from '@vue/runtime-core'
-import { projectsService } from '../services/ProjectsService'
-import Pop from '../utils/Notifier'
-import { AppState } from '../AppState'
 
 export default {
   name: 'ProjectsComponent',
+  props: {
+    projects: {
+      type: Array,
+      required: true
+    }
+  },
 
   setup() {
     return {
-      projects: computed(() => AppState.projects),
-      account: computed(() => AppState.account)
     }
   },
   components: {}
