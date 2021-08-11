@@ -1,7 +1,5 @@
 <template>
-  <div class="component">
-    YOU DID IT!
-  </div>
+  <ProjectDetails />
 </template>
 
 <script>

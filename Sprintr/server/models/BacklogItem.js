@@ -9,7 +9,7 @@ export const BacklogItem = new Schema(
     body: { type: String, required: true },
     creatorId: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
     projectId: { type: Schema.Types.ObjectId, ref: 'Project', required: true },
-    isOpen: { type: Boolean, required: true },
+    isOpen: { type: Boolean, default: true },
     color: { type: String }
   },
   { timestamps: true, toJSON: { virtuals: true } }

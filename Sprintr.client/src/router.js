@@ -23,7 +23,7 @@ const routes = [
     beforeEnter: authGuard
   },
   {
-    path: '/backlogitems',
+    path: '/backlog/:id',
     name: 'ProjectBacklogPage',
     component: loadPage('ProjectBacklogPage')
   }

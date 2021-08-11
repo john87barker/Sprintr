@@ -5,13 +5,13 @@ import { api } from './AxiosService'
 class ProjectsService {
   async getAllProjects() {
     const res = await api.get('api/projects')
-    logger.log(res.data)
+
     AppState.projects = res.data
   }
 
-  async getByProjectId(id) {
+  async getProjectById(id) {
     const res = await api.get(`api/projects/${id}`)
-    logger.log(res.data)
+    AppState.activeProject = res.data
   }
 
   async createProject(newProject) {

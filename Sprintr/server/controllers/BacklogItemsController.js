@@ -6,7 +6,7 @@ import { tasksService } from '../services/TasksService'
 
 export class BacklogItemsController extends BaseController {
   constructor() {
-    super('api/backlogitems')
+    super('api/backlog')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)

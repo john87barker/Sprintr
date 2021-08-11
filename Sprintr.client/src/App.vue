@@ -26,5 +26,7 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
-
+.action:hover{
+  cursor: pointer;
+}
 </style>
