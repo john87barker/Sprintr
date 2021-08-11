@@ -27,7 +27,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { sprintsService } from '../services/SprintsService'
+// import { sprintsService } from '../services/SprintsService'
 import Pop from '../utils/Notifier'
 
 export default {
@@ -40,7 +40,7 @@ export default {
       async createSprint() {
         try {
           // TODO create sprint service
-          await sprintsService.createSprint(state.newSprint)
+          // await sprintsService.createSprint(state.newSprint)
           console.log('creating sprint in component')
           state.newSprint = {}
           Pop.toast('Sprint Created', 'success')

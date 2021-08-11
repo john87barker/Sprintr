@@ -27,7 +27,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { backlogItemsService } from '../services/BacklogItemsService'
+// import { backlogItemsService } from '../services/BacklogItemsService'
 import Pop from '../utils/Notifier'
 
 export default {
@@ -40,7 +40,7 @@ export default {
       async createBacklogItem() {
         try {
           // TODO create backlogItem service
-          await backlogItemsService.createBacklogItem(state.newBacklogItem)
+          // await backlogItemsService.createBacklogItem(state.newBacklogItem)
           console.log('creating backlogItem in component')
           state.newBacklogItem = {}
           Pop.toast('BacklogItem Created', 'success')
