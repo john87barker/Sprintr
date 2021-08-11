@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-12 procard shadow">
+  <div class="col-md-12 procard shadow bg-secondary mb-2 rounded">
     <div class="row my-4">
       <div class="col-12 action text-right mb-2">
         <button class="btn btn-outline-primary" @click="destroyProject(project.id)">

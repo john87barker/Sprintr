@@ -1,6 +1,6 @@
 <template>
   <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center row">
-    <div class="col-md-12 bg-secondary shadow">
+    <div class="col-md-12 bg-secondary-dark shadow">
       <div class="row mt-3 pb-3">
         <div class="col-md-6 pl-5 text-left">
           <h3> Projects</h3>

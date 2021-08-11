@@ -10,6 +10,7 @@ $grey: #adcad6;
 $dark-grey: #696969;
 $white: #fff;
 $light: #f8f9fa;
+$secondary-dark: #fdc500;
 
 $colors: (
   "primary": $primary,
@@ -22,7 +23,8 @@ $colors: (
   "grey": $grey,
   "dark-grey": $dark-grey,
   "white": $white,
-  "light": $light
+  "light": $light,
+  "secondary-dark": $secondary-dark
 );
 
 $color-ranges: (
