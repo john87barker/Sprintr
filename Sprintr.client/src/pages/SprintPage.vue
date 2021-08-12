@@ -23,7 +23,7 @@
         <!-- I want the following idea here v-if="projectId === b.projectId" -->
         <div class="row">
           <div class="col-md-1">
-            <button class="btn btn-outline-primary" @click.prevent="destroyBacklogItem(s.id)">
+            <button class="btn btn-outline-primary" @click.prevent="destroySprint(s.id)">
               X
             </button>
           </div>
@@ -52,7 +52,6 @@ import { projectsService } from '../services/ProjectsService'
 import { useRoute, useRouter } from 'vue-router'
 import Pop from '../utils/Notifier'
 import CreateSprint from '../components/CreateSprint.vue'
-import { backlogItemsService } from '../services/BacklogItemsService'
 import Swal from 'sweetalert2/dist/sweetalert2.all'
 import { sprintsService } from '../services/SprintsService'
 
@@ -63,7 +62,7 @@ export default {
   //     required: true
   //   }
   // },
-  name: 'Backlog',
+  name: 'Sprint',
   setup() {
     const route = useRoute()
     onMounted(async() => {
@@ -81,7 +80,7 @@ export default {
       activeProject: computed(() => AppState.activeProject),
       activeSprint: computed(() => AppState.activeSprint),
       sprints: computed(() => AppState.sprints),
-      async destroyBacklogItem(id) {
+      async destroySprint(id) {
         console.log(id)
         try {
           await Swal.fire({
@@ -94,7 +93,7 @@ export default {
             confirmButtonText: 'Yes, delete it!'
           }).then(async(result) => {
             if (result.isConfirmed) {
-              await backlogItemsService.destroyBacklogItem(id)
+              await sprintsService.destroySprint(id)
               Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',

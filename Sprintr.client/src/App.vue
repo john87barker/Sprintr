@@ -5,8 +5,8 @@
   <main class="bg-secondary-dark justify-content-center">
     <router-view />
   </main>
-  <footer class="mt-2">
-    <div class="bg-dark text-light text-center p-4">
+  <footer class="">
+    <div class="bg-dark text-light text-center p-2">
       Made with 🍔 by CJ/John
     </div>
   </footer>

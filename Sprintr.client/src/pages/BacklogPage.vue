@@ -30,15 +30,17 @@
           {{ b.body }}
         </div>
         <div class="col-md-6 d-flex justify-content-end">
-          <button class="btn btn-outline-primary btn-sm m-2">
+          <button class="btn btn-outline-primary btn-sm m-2" data-target="#createTask" data-toggle="modal">
             Add Task +
           </button>
+
           <p class="pl-2">
             0/0 Tasks Completed
           </p>
         </div>
       </div>
     </div>
+    <CreateTask />
   </div>
 </template>
 
