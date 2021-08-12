@@ -3,6 +3,7 @@ import { projectsService } from '../services/ProjectsService'
 import BaseController from '../utils/BaseController'
 import { sprintsService } from '../services/SprintsService'
 import { backlogItemsService } from '../services/BacklogItemsService'
+import { tasksService } from '../services/TasksService'
 // import Project from '../models/Project'
 
 export class ProjectsController extends BaseController {
@@ -14,9 +15,19 @@ export class ProjectsController extends BaseController {
       .get('/:id', this.getOne)
       .get('/:id/sprints', this.getSprintById)
       .get('/:id/backlogitem', this.getBacklogItemById)
+      .get('/:id/tasks', this.getTasksByProjectId)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.destroy)
+  }
+
+  async getTasksByProjectId(req, res, next) {
+    try {
+      const tasks = await tasksService.getTasksByProjectId({ projectId: req.params.id })
+      res.send(tasks)
+    } catch (error) {
+      next(error)
+    }
   }
 
   async getAll(req, res, next) {

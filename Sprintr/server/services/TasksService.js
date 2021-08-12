@@ -2,6 +2,10 @@ import { dbContext } from '../db/DbContext'
 import { BadRequest, Forbidden } from '../utils/Errors'
 
 class TasksService {
+  async getTasksByProjectId(query) {
+    return await dbContext.Task.find(query).populate('creator', 'name')
+  }
+
   async getTasksById(query) {
     return await dbContext.Task.find(query)
   }

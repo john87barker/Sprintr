@@ -9,7 +9,7 @@ export const Task = new Schema(
   {
 
     description: { type: Schema.Types.ObjectId, required: true },
-    sprintId: { type: Schema.Types.ObjectId, ref: 'Sprint', required: true },
+    sprintId: { type: Schema.Types.ObjectId, ref: 'Sprint' },
     creatorId: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
     projectId: { type: Schema.Types.ObjectId, ref: 'Project', required: true },
     backlogItemId: { type: Schema.Types.ObjectId, ref: 'BacklogItem', required: true },
