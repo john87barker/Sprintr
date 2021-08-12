@@ -58,7 +58,7 @@ export default {
       state,
       account: computed(() => AppState.account),
       backlogs: computed(() => AppState.backlogs),
-      activeProject: computed(() => AppState.activeProject),
+      // activeProject: computed(() => AppState.activeProject),
       async createBacklogItem() {
         try {
           state.newBacklogItem.projectId = route.params.id

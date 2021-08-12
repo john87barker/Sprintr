@@ -4,7 +4,6 @@ import { audience, clientId, domain } from '../env'
 import { router } from '../router'
 import { accountService } from './AccountService'
 import { api } from './AxiosService'
-import { backlogItemsService } from './BacklogItemsService'
 import { projectsService } from './ProjectsService'
 
 export const AuthService = initialize({
