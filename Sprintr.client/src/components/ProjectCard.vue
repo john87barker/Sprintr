@@ -15,7 +15,7 @@
           {{ project.creator.name }}
         </div>
         <div class="col-md-4 text-right">
-          {{ project.createdAt }}
+          {{ new Date(project.createdAt).toLocaleString() }}
         </div>
       </div>
     </router-link>

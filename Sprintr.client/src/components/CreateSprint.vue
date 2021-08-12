@@ -21,7 +21,18 @@
           >
           <br>
           <div>
-            <label for="date" class="text-dark">Sprint End Date</label>
+            <label for="date" class="text-dark">Start Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="startDate"
+              v-model="state.newSprint.startDate"
+              rows="5"
+              placeholder="Date"
+            >
+          </div>
+          <div>
+            <label for="date" class="text-dark">End Date</label>
             <input
               type="date"
               class="form-control"
@@ -48,28 +59,28 @@ import { sprintsService } from '../services/SprintsService'
 import Pop from '../utils/Notifier'
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
   name: 'Component',
   setup() {
     const router = useRouter()
+    const route = useRoute()
     const state = reactive({
       newSprint: {}
     })
     return {
       state,
+      route,
+      router,
       account: computed(() => AppState.account),
       sprints: computed(() => AppState.sprints),
       async createSprint() {
         try {
-          const newId = await sprintsService.createSprint(state.newSprint)
+          state.newSprint.projectId = route.params.id
           await sprintsService.createSprint(state.newSprint)
-
           state.newSprint = {}
           Pop.toast('Sprint Created', 'success')
-          // NOTE not sure what to do with the name because of the nesting routes...
-          // router.push({ name: 'ProjectBacklogPage', params: { id: newId } })
         } catch (error) {
           Pop.toast(error, 'error')
         }

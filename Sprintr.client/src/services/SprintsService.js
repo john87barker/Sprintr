@@ -17,12 +17,8 @@ class SprintsService {
   async createSprint(newSprint) {
     try {
       const res = await api.post('api/sprints', newSprint)
-
       logger.log(res.data)
-      // AppState.sprints = AppState.sprints.push(res.data)
-
       AppState.sprints = [...AppState.sprints, res.data]
-      // await this.getAllSprints()
     } catch (error) {
       logger.error(error)
     }

@@ -60,8 +60,6 @@ export default {
       async createProject() {
         try {
           const newProject = await projectsService.createProject(state.newProject)
-          // await projectsService.createProject(state.newProject)
-          debugger
           state.newProject = {}
           Pop.toast('Project Created', 'success')
           router.push({ name: 'ProjectPage', params: { id: newProject.id } })

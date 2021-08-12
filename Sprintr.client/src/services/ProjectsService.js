@@ -24,13 +24,9 @@ class ProjectsService {
   async createProject(newProject) {
     try {
       const res = await api.post('api/projects', newProject)
-
       logger.log(res.data)
-      // AppState.projects = AppState.projects.push(res.data)
-
       AppState.projects = [...AppState.projects, res.data]
       return res.data
-      // await this.getAllProjects()
     } catch (error) {
       logger.error(error)
     }
