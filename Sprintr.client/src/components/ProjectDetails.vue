@@ -36,7 +36,7 @@
       <div class="col-md-10 offset-1 card " v-for="b in backlogs" :key="b.id">
         <div class="row">
           <div class="col-md-6">
-            🐢 {{ backlogs.name }}
+            🐢 {{ b.name }}
           </div>
           <div class="col-md-6 d-flex justify-content-end">
             <button class="btn btn-outline-primary btn-sm">
