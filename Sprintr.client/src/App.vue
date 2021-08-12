@@ -2,7 +2,7 @@
   <header>
     <Navbar />
   </header>
-  <main class="bg-secondary-dark justify-content-center bg-turtle">
+  <main class="bg-secondary-dark justify-content-center">
     <router-view />
   </main>
   <footer class="mt-2">
@@ -28,11 +28,6 @@ export default {
 @import "./assets/scss/main.scss";
 .action:hover{
   cursor: pointer;
-}
-.bg-turtle{
-  background: url("turtle.gif");
-  background-size: cover;
-  background-position: center;
 }
 
 </style>
