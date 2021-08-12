@@ -11,12 +11,12 @@ const routes = [
     name: 'Home',
     component: loadPage('HomePage'),
     // children: [{
-    //   path: '/backlog',
+    //   path: 'backlog',
     //   name: 'Backlog',
     //   component: loadPage('ProjectDetails')
     // },
     // {
-    //   path: '/sprint',
+    //   path: 'sprint',
     //   name: 'Backlog',
     //   component: loadPage('ProjectDetails')
     // }
@@ -36,7 +36,7 @@ const routes = [
     beforeEnter: authGuard
   },
   {
-    path: '/backlogitem/:id',
+    path: '/projects/:id',
     name: 'ProjectBacklogPage',
     component: loadPage('ProjectBacklogPage'),
     beforeEnter: authGuard

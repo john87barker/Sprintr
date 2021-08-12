@@ -58,14 +58,12 @@ export default {
       state,
       account: computed(() => AppState.account),
       backlogs: computed(() => AppState.backlogs),
-      // activeProject: computed(() => AppState.activeProject),
       async createBacklogItem() {
         try {
           state.newBacklogItem.projectId = route.params.id
           await backlogItemsService.createBacklogItem(state.newBacklogItem)
           state.newBacklogItem = {}
           Pop.toast('BacklogItem Created', 'success')
-          // console.log(state.newBacklogItem)
         } catch (error) {
           Pop.toast(error, 'error')
         }

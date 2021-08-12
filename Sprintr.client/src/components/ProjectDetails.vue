@@ -36,12 +36,17 @@
       <CreateBacklogItem />
     </div>
     <div class="row bg-secondary-dark mx-5">
-      <div class="col-md-10 offset-1 card mb-3 shadow py-2" v-for="b in backlogs" :key="b.id">
+      <div class="col-md-10 offset-1 card mb-3 shadow py-2" v-for="b in activeBacklog" :key="b.id">
         <!-- I want the following idea here v-if="projectId === b.projectId" -->
         <div class="row">
-          <div class="col-md-6 text-uppercase  ">
-            🐢 {{ b.name }}
-            {{ b.projectId }}
+          <div class="col-md-1">
+            <button class="btn btn-outline-primary" @click.prevent="destroyBacklogItem(b.id)">
+              X
+            </button>
+          </div>
+          <div class="col-md-5 text-uppercase ">
+            🐢 {{ b.name }}<br>
+            {{ b.body }}
           </div>
           <div class="col-md-6 d-flex justify-content-end">
             <button class="btn btn-outline-primary btn-sm m-2">
@@ -65,6 +70,7 @@ import { useRoute, useRouter } from 'vue-router'
 import Pop from '../utils/Notifier'
 import CreateBacklogItem from '../components/CreateBacklogItem.vue'
 import { backlogItemsService } from '../services/BacklogItemsService'
+import Swal from 'sweetalert2/dist/sweetalert2.all'
 
 export default {
   // props: {
@@ -76,15 +82,11 @@ export default {
   name: 'Backlog',
   setup() {
     const route = useRoute()
-    // const router = useRouter()
     onMounted(async() => {
       try {
         await projectsService.getProjectById(route.params.id)
         console.log('PD on mounted')
-        await backlogItemsService.getAllBacklogItems(route.params.id)
-        // NOTE the following is what we need I think
-        // NOTE i moved it to the projectsService just in case but both suck.
-        // await projectsService.getBacklogItemById(route.params.id)
+        await backlogItemsService.getBacklogItemByProjectId(route.params.id)
       } catch (error) {
         Pop.toast('You failed' + error, 'error')
       }
@@ -92,8 +94,33 @@ export default {
     return {
       backlogs: computed(() => AppState.backlogs),
       project: computed(() => AppState.activeProject),
-      // activeproject added to help get only the BL we want. Needs more work.
-      activeProject: computed(() => AppState.activeProject)
+      activeProject: computed(() => AppState.activeProject),
+      activeBacklog: computed(() => AppState.activeBacklog),
+      async destroyBacklogItem(id) {
+        console.log(id)
+        try {
+          await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+              await backlogItemsService.destroyBacklogItem(id)
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          })
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      }
     }
   },
   components: {
