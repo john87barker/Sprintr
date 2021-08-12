@@ -4,7 +4,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">
-            Modal title
+            Create BacklogItem
           </h5>
           <button type="button" class="btn-close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
             X
@@ -12,12 +12,25 @@
         </div>
         <div class="modal-body">
           <!-- VModel -->
-          <input class="form-control" type="text" id="name" placeholder="Name Project..."><br>
-          <textarea class="form-control" id="description" rows="3" placeholder="Description..."></textarea>
+          <input
+            class="form-control"
+            type="text"
+            v-model="state.newBacklogItem.name"
+            id="name"
+            placeholder="Name BacklogItem..."
+          >
+          <br>
+          <input
+            class="form-control"
+            id="body"
+            v-model="state.newBacklogItem.body"
+            rows="5"
+            placeholder="Body..."
+          >
         </div>
         <div class="modal-footer">
-          <button type="submit" @click="createBacklogItem" class="btn btn-primary">
-            Save changes
+          <button type="submit" @click="createBacklogItem" class="btn btn-primary" data-toggle="modal" data-target="#createBacklogItem">
+            Submit BacklogItem
           </button>
         </div>
       </div>
@@ -27,23 +40,32 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-// import { backlogItemsService } from '../services/BacklogItemsService'
+import { backlogItemsService } from '../services/BacklogItemsService'
 import Pop from '../utils/Notifier'
+import { computed } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import { useRouter, useRoute } from 'vue-router'
 
 export default {
   name: 'Component',
   setup() {
+    const route = useRoute()
     const state = reactive({
-      newProject: {}
+
+      newBacklogItem: {}
     })
     return {
+      state,
+      account: computed(() => AppState.account),
+      backlogs: computed(() => AppState.backlogs),
+      activeProject: computed(() => AppState.activeProject),
       async createBacklogItem() {
         try {
-          // TODO create backlogItem service
-          // await backlogItemsService.createBacklogItem(state.newBacklogItem)
-          console.log('creating backlogItem in component')
+          state.newBacklogItem.projectId = route.params.id
+          await backlogItemsService.createBacklogItem(state.newBacklogItem)
           state.newBacklogItem = {}
           Pop.toast('BacklogItem Created', 'success')
+          // console.log(state.newBacklogItem)
         } catch (error) {
           Pop.toast(error, 'error')
         }
