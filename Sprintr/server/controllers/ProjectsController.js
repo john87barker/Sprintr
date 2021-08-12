@@ -47,7 +47,6 @@ export class ProjectsController extends BaseController {
     }
   }
 
-  // NOTE not sure why getting linter error on line 53
   async getBacklogItemById(req, res, next) {
     try {
       const backlogItem = await backlogItemsService.getBacklogItemById({ backlogItemId: req.params.id })

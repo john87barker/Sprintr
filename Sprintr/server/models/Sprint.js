@@ -10,7 +10,7 @@ export const Sprint = new Schema(
     projectId: { type: Schema.Types.ObjectId, ref: 'Project', required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
-    isOpen: { type: Boolean, required: true }
+    isOpen: { type: Boolean, default: true }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )

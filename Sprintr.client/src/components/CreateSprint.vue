@@ -4,7 +4,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">
-            Modal title
+            Create Sprint
           </h5>
           <button type="button" class="btn-close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
             X
@@ -12,12 +12,25 @@
         </div>
         <div class="modal-body">
           <!-- VModel -->
-          <input class="form-control" type="text" id="name" placeholder="Name Project..."><br>
-          <textarea class="form-control" id="description" rows="3" placeholder="Description..."></textarea>
+          <input
+            class="form-control"
+            type="text"
+            v-model="state.newSprint.name"
+            id="name"
+            placeholder="Name Sprint..."
+          >
+          <br>
+          <input
+            class="form-control"
+            id="endDate"
+            v-model="state.newSprint.endDate"
+            rows="5"
+            placeholder="Description..."
+          >
         </div>
         <div class="modal-footer">
-          <button type="submit" @click="createSprint" class="btn btn-primary">
-            Save changes
+          <button type="submit" @click="createSprint" class="btn btn-primary" data-toggle="modal" data-target="#createSprint">
+            Create Sprint
           </button>
         </div>
       </div>
@@ -27,23 +40,32 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-// import { sprintsService } from '../services/SprintsService'
+import { sprintsService } from '../services/SprintsService'
 import Pop from '../utils/Notifier'
+import { computed } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'Component',
   setup() {
+    const router = useRouter()
     const state = reactive({
-      newProject: {}
+      newSprint: {}
     })
     return {
+      state,
+      account: computed(() => AppState.account),
+      sprints: computed(() => AppState.sprints),
       async createSprint() {
         try {
-          // TODO create sprint service
-          // await sprintsService.createSprint(state.newSprint)
-          console.log('creating sprint in component')
+          const newId = await sprintsService.createSprint(state.newSprint)
+          await sprintsService.createSprint(state.newSprint)
+
           state.newSprint = {}
           Pop.toast('Sprint Created', 'success')
+          // NOTE not sure what to do with the name because of the nesting routes...
+          // router.push({ name: 'ProjectBacklogPage', params: { id: newId } })
         } catch (error) {
           Pop.toast(error, 'error')
         }
