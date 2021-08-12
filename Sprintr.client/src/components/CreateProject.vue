@@ -59,12 +59,12 @@ export default {
       account: computed(() => AppState.account),
       async createProject() {
         try {
-          const newId = await projectsService.createProject(state.newProject)
-          await projectsService.createProject(state.newProject)
-
+          const newProject = await projectsService.createProject(state.newProject)
+          // await projectsService.createProject(state.newProject)
+          debugger
           state.newProject = {}
           Pop.toast('Project Created', 'success')
-          router.push({ name: 'ProjectBacklogPage', params: { id: newId } })
+          router.push({ name: 'ProjectBacklogPage', params: { id: newProject.id } })
         } catch (error) {
           Pop.toast(error, 'error')
         }
