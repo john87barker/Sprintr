@@ -37,9 +37,20 @@ const routes = [
   },
   {
     path: '/projects/:id',
-    name: 'ProjectBacklogPage',
-    component: loadPage('ProjectBacklogPage'),
-    beforeEnter: authGuard
+    name: 'ProjectPage',
+    component: loadPage('ProjectPage'),
+    beforeEnter: authGuard,
+    children: [{
+      path: 'backlog',
+      name: 'BacklogPage',
+      component: loadPage('BacklogPage')
+    },
+    {
+      path: 'sprint',
+      name: 'SprintPage',
+      component: loadPage('SprintPage')
+    }
+    ]
   }
 ]
 

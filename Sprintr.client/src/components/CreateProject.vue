@@ -64,7 +64,7 @@ export default {
           debugger
           state.newProject = {}
           Pop.toast('Project Created', 'success')
-          router.push({ name: 'ProjectBacklogPage', params: { id: newProject.id } })
+          router.push({ name: 'ProjectPage', params: { id: newProject.id } })
         } catch (error) {
           Pop.toast(error, 'error')
         }
