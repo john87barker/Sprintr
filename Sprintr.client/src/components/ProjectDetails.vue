@@ -16,6 +16,7 @@
           +Sprint
         </button>
       </div>
+      <CreateSprint />
     </div>
     <div class="row bg-secondary-dark mx-5 pb-5 d-flex justify-content-start mt-2 shadow">
       <div class="col-md-6 py-2 ">
@@ -72,7 +73,7 @@ export default {
   //     required: true
   //   }
   // },
-  name: 'Component',
+  name: 'Backlog',
   setup() {
     const route = useRoute()
     // const router = useRouter()
@@ -82,7 +83,8 @@ export default {
         console.log('PD on mounted')
         await backlogItemsService.getAllBacklogItems(route.params.id)
         // NOTE the following is what we need I think
-        await backlogItemsService.getBacklogItemById(route.params.id)
+        // NOTE i moved it to the projectsService just in case but both suck.
+        // await projectsService.getBacklogItemById(route.params.id)
       } catch (error) {
         Pop.toast('You failed' + error, 'error')
       }

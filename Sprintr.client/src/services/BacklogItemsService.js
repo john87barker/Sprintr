@@ -10,6 +10,7 @@ class BacklogItemsService {
     console.log(AppState.backlogs)
   }
 
+  // Is this in the right place?
   async getBacklogItemById(id) {
     const res = await api.get(`api/backlogitem/${id}`)
     console.log('BL Service 1')

@@ -14,6 +14,13 @@ class ProjectsService {
     AppState.activeProject = res.data
   }
 
+  // Is this in the right place?
+  async getBacklogItemById(id) {
+    const res = await api.get(`api/backlogitem/${id}`)
+    console.log('BL Service 1')
+    AppState.activeBacklog = res.data
+  }
+
   async createProject(newProject) {
     try {
       const res = await api.post('api/projects', newProject)

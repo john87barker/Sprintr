@@ -17,16 +17,20 @@
             type="text"
             v-model="state.newSprint.name"
             id="name"
-            placeholder="Name Sprint..."
+            placeholder="Sprint name..."
           >
           <br>
-          <input
-            class="form-control"
-            id="endDate"
-            v-model="state.newSprint.endDate"
-            rows="5"
-            placeholder="Description..."
-          >
+          <div>
+            <label for="date" class="text-dark">Sprint End Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="endDate"
+              v-model="state.newSprint.endDate"
+              rows="5"
+              placeholder="Date"
+            >
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" @click="createSprint" class="btn btn-primary" data-toggle="modal" data-target="#createSprint">
