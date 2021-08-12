@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-12 procard shadow bg-secondary mb-2 rounded">
-    <router-link :to="{ name: 'ProjectBacklogPage', params: {id: project.id}}" @click.stop="">
+    <router-link :to="{ name: 'BacklogPage', params: {id: project.id}}" @click.stop="">
       <div class="row my-4">
         <div class="col-12 action text-right mb-2">
           <button class="btn btn-outline-primary" @click.stop.prevent="destroyProject(project.id)">
