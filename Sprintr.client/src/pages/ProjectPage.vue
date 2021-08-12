@@ -27,7 +27,7 @@ import { AppState } from '../AppState'
 import { projectsService } from '../services/ProjectsService'
 import { useRoute, useRouter } from 'vue-router'
 import Pop from '../utils/Notifier'
-import CreateBacklogItem from '../components/CreateBacklogItem.vue'
+import { sprintsService } from '../services/SprintsService'
 import { backlogItemsService } from '../services/BacklogItemsService'
 import Swal from 'sweetalert2/dist/sweetalert2.all'
 
@@ -46,6 +46,7 @@ export default {
         await projectsService.getProjectById(route.params.id)
         console.log('PD on mounted')
         await backlogItemsService.getBacklogItemByProjectId(route.params.id)
+        await sprintsService.getAllSprintsByProjectId(route.params.id)
       } catch (error) {
         Pop.toast('You failed' + error, 'error')
       }
