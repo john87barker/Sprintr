@@ -35,7 +35,11 @@ class ProjectsService {
 
   async destroy(id, userId) {
     await this.getOne(id)
-    return await dbContext.Project.findOneAndDelete({ _id: id, creatorId: userId })
+    const deleted = await dbContext.Project.findOneAndDelete({ _id: id, creatorId: userId })
+    if (!deleted) {
+      throw new BadRequest('project was not deleted')
+    }
+    return deleted
   }
 }
 export const projectsService = new ProjectsService()

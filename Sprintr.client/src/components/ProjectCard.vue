@@ -52,13 +52,13 @@ export default {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
+          }).then(async(result) => {
             if (result.isConfirmed) {
+              await projectsService.destroyProject(id)
               Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',
-                'success',
-                projectsService.destroyProject(id)
+                'success'
               )
             }
           })

@@ -43,9 +43,9 @@ class ProjectsService {
 
   async destroyProject(id) {
     console.log(id)
-    await api.delete('api/projects/' + id)
+    const res = await api.delete('api/projects/' + id)
     const allProjects = AppState.projects
-    AppState.projects = allProjects.filter(p => p.id !== id)
+    AppState.projects = allProjects.filter(p => p.id !== res.data.id)
   }
 }
 export const projectsService = new ProjectsService()
