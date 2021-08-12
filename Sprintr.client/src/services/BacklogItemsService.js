@@ -3,17 +3,9 @@ import { AppState } from '../AppState'
 import { api } from './AxiosService'
 
 class BacklogItemsService {
-  async getAllBacklogItems() {
-    const res = await api.get('api/backlogitem')
-
-    AppState.backlogs = res.data
-    console.log(AppState.backlogs)
-  }
-
-  // Is this in the right place?
   async getBacklogItemByProjectId(id) {
     const res = await api.get(`api/projects/${id}/backlogitem`)
-    console.log(res.data)
+    logger.log(res.data)
     AppState.activeBacklog = res.data
   }
 
@@ -33,7 +25,6 @@ class BacklogItemsService {
   }
 
   async destroyBacklogItem(id) {
-    console.log(id)
     await api.delete('api/backlogitem/' + id)
     const allBacklogItems = AppState.activeBacklog
     AppState.activeBacklog = allBacklogItems.filter(p => p.id !== id)
