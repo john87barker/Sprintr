@@ -30,7 +30,7 @@
           {{ b.body }}
         </div>
         <div class="col-md-6 d-flex justify-content-end">
-          <button class="btn btn-outline-primary btn-sm m-2" data-target="#createTask" data-toggle="modal">
+          <button class="btn btn-outline-primary btn-sm m-2" data-target="#create-task" data-toggle="modal">
             Add Task +
           </button>
 
@@ -39,8 +39,8 @@
           </p>
         </div>
       </div>
+      <CreateTask :btask="b" />
     </div>
-    <CreateTask />
   </div>
 </template>
 
@@ -53,14 +53,10 @@ import Pop from '../utils/Notifier'
 import CreateBacklogItem from '../components/CreateBacklogItem.vue'
 import { backlogItemsService } from '../services/BacklogItemsService'
 import Swal from 'sweetalert2/dist/sweetalert2.all'
+import { tasksService } from '../services/TasksService'
 
 export default {
-  // props: {
-  //   backlog: {
-  //     type: Object,
-  //     required: true
-  //   }
-  // },
+
   name: 'Backlog',
   setup() {
     const route = useRoute()
@@ -69,6 +65,7 @@ export default {
         await projectsService.getProjectById(route.params.id)
         console.log('PD on mounted')
         await backlogItemsService.getBacklogItemByProjectId(route.params.id)
+        await tasksService.getAllTasksByProjectId(route.params.id)
       } catch (error) {
         Pop.toast('You failed' + error, 'error')
       }
@@ -78,6 +75,7 @@ export default {
       project: computed(() => AppState.activeProject),
       activeProject: computed(() => AppState.activeProject),
       activeBacklog: computed(() => AppState.activeBacklog),
+      tasks: computed(() => AppState.tasks),
       async destroyBacklogItem(id) {
         console.log(id)
         try {

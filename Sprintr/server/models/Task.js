@@ -8,13 +8,13 @@ const Schema = mongoose.Schema
 export const Task = new Schema(
   {
 
-    description: { type: Schema.Types.ObjectId, required: true },
+    description: { type: String, required: true },
     sprintId: { type: Schema.Types.ObjectId, ref: 'Sprint' },
     creatorId: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
     projectId: { type: Schema.Types.ObjectId, ref: 'Project', required: true },
     backlogItemId: { type: Schema.Types.ObjectId, ref: 'BacklogItem', required: true },
     status: { type: String, enum: ['pending', 'in-progress', 'review', 'done'], default: 'pending' },
-    weight: { type: Number, required: true },
+    weight: { type: Number, default: 0, required: true },
     assignedTo: { type: [Schema.Types.ObjectId] }
 
   },

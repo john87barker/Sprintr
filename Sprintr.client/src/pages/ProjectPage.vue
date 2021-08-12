@@ -56,6 +56,7 @@ export default {
       project: computed(() => AppState.activeProject),
       activeProject: computed(() => AppState.activeProject),
       activeBacklog: computed(() => AppState.activeBacklog),
+      sprints: computed(() => AppState.tasks),
       async destroyBacklogItem(id) {
         console.log(id)
         try {

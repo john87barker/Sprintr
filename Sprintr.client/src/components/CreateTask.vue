@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade" id="createTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="create-task" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -28,7 +28,6 @@
             id="weight"
             max="5"
             min="1"
-            columns="3"
             placeholder="1"
           >
         </div>
@@ -52,11 +51,19 @@ import { useRoute, useRouter } from 'vue-router'
 
 export default {
   name: 'Component',
-  setup() {
+  props: {
+    btask: {
+      type: Object,
+      required: true
+    }
+  },
+  setup(props) {
     const router = useRouter()
     const route = useRoute()
     const state = reactive({
-      newTask: {}
+      newTask: {
+        weight: 0
+      }
     })
     return {
       state,
@@ -67,6 +74,7 @@ export default {
       async createTask() {
         try {
           state.newTask.projectId = route.params.id
+          state.newTask.backlogItemId = props.btask.id
           await tasksService.createTask(state.newTask)
           state.newTask = {}
           Pop.toast('Task Created', 'success')
