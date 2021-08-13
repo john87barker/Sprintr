@@ -18,7 +18,7 @@
   </div>
   <div class="row bg-secondary-dark mx-5">
     <div class="col-md-10 offset-1 card mb-3 shadow py-2" v-for="b in activeBacklog" :key="b.id">
-      <!-- I want the following idea here v-if="projectId === b.projectId" -->
+      <!-- THIS IS THE CARD -->
       <div class="row">
         <div class="col-md-1">
           <button class="btn btn-outline-primary" @click.prevent="destroyBacklogItem(b.id)">
@@ -26,11 +26,11 @@
           </button>
         </div>
         <div class="col-md-5 text-uppercase ">
-          🐢 {{ b.name }}<br>
+          🐢 {{ b.name }} Total Weight: <br>
           {{ b.body }}
         </div>
         <div class="col-md-6 d-flex justify-content-end">
-          <button class="btn btn-outline-primary btn-sm m-2" data-target="#create-task" data-toggle="modal">
+          <button class="btn btn-outline-primary btn-sm m-2" :data-target="'#create-task'+ b.id" data-toggle="modal">
             Add Task +
           </button>
 
@@ -38,6 +38,8 @@
             0/0 Tasks Completed
           </p>
         </div>
+        <hr>
+        <BLItemComponent :btask="b" />
       </div>
       <CreateTask :btask="b" />
     </div>
@@ -66,6 +68,7 @@ export default {
         console.log('PD on mounted')
         await backlogItemsService.getBacklogItemByProjectId(route.params.id)
         await tasksService.getAllTasksByProjectId(route.params.id)
+        // await tasksService.getAllTasksByBacklogId(route.params.id)
       } catch (error) {
         Pop.toast('You failed' + error, 'error')
       }
@@ -76,6 +79,7 @@ export default {
       activeProject: computed(() => AppState.activeProject),
       activeBacklog: computed(() => AppState.activeBacklog),
       tasks: computed(() => AppState.tasks),
+
       async destroyBacklogItem(id) {
         console.log(id)
         try {
@@ -101,6 +105,7 @@ export default {
           Pop.toast(error, 'error')
         }
       }
+
     }
   },
   components: {

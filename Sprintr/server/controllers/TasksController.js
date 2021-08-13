@@ -77,8 +77,7 @@ export class TasksController extends BaseController {
 
   async destroy(req, res, next) {
     try {
-      await tasksService.destroy(req.params.id)
-      res.send({ message: 'You deleted that ****!' })
+      res.send(await tasksService.destroy(req.params.id))
     } catch (error) {
       next(error, 'could not delete')
     }

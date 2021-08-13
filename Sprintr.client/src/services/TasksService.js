@@ -22,7 +22,6 @@ class TasksService {
 
   async createTask(newTask) {
     try {
-      debugger
       const res = await api.post('api/tasks', newTask)
       logger.log(res.data)
       AppState.tasks = [...AppState.tasks, res.data]
