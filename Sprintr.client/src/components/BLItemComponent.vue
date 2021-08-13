@@ -24,6 +24,15 @@
                   {{ s.name }}
                 </option>
               </select>
+              <div>
+                Sprint:
+                <select v-model="state.selectedSprint" :value="sprint.name" @change="logStatus" class="pb-1">
+                  <!-- inline object literal -->
+                  <option v-for="sprint in sprints" :value="sprint.id" :key="sprint.id">
+                    {{ sprint.name }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
         </li>
@@ -52,7 +61,8 @@ export default {
 
   setup(props) {
     const state = reactive({
-      selectedStatus: ''
+      selectedStatus: '',
+      selectedSprint: ''
     })
     return {
       state,
@@ -62,10 +72,10 @@ export default {
         { name: 'review' },
         { name: 'done' }
       ],
-      logStatus() {
-        logger.log(state.selectedStatus)
-      },
+      sprint: {},
+
       tasks: computed(() => AppState.tasks.filter(t => t.backlogItemId === props.btask.id)),
+      sprints: computed(() => AppState.sprints),
 
       // async totalWeight() {
       //   const tWeights = AppState.tasks.filter(t => t.backlogItemId === props.btask).weight
