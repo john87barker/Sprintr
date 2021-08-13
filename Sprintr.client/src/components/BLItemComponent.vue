@@ -85,19 +85,6 @@ export default {
       tasks: computed(() => AppState.tasks.filter(t => t.backlogItemId === props.btask.id)),
       sprints: computed(() => AppState.sprints),
       weight: computed(() => AppState.tasks.weight),
-
-      // async totalWeight() {
-      //   const tWeights = AppState.tasks.filter(t => t.backlogItemId === props.btask).weight
-      //   const totalWeight = tWeights => tWeights.reduce((a, b) => a + b, 0)
-      //   return totalWeight
-      // },
-      // async updateSprint(id) {
-      //   try {
-      //     await sprintsService.updateSprint(id)
-      //   } catch (error) {
-      //     Pop.toast(error, 'error')
-      //   }
-      // },
       async destroyTask(id) {
         try {
           await Swal.fire({

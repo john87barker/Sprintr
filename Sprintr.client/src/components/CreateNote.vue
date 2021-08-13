@@ -1,6 +1,6 @@
 <template>
   <div class="modal fade" id="createNote" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog ">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">
@@ -11,7 +11,7 @@
           </button>
         </div>
         {{ task.id }}
-        <div class="modal-body">
+        <div class="modal-body modal-body-scrollable">
           <textarea
             class="form-control"
             v-model="state.newNote.body"
@@ -22,12 +22,21 @@
           </textarea>
         </div>
         <div v-for="n in notes" :key="n.id">
-          <div class="m-4 p-3 border">
-            {{ n.body }}
-            <br>
-            - {{ n.creatorId }}
-            <br>
-            {{ n.createdAt }}
+          <div class="m-4 p-3 border col-md-11">
+            <div class="row">
+              <div class="col-md-10">
+                {{ n.body }}
+                <br>
+                - {{ n.creatorId }}
+                <br>
+                {{ n.createdAt }}
+              </div>
+              <div class="col-md-2 text-right">
+                <button class="btn btn-outline-primary" @click="destroyNote(n.id)">
+                  X
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -47,6 +56,7 @@ import Pop from '../utils/Notifier'
 import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2/dist/sweetalert2.all'
 
 export default {
   name: 'Component',
@@ -79,6 +89,30 @@ export default {
           const newNote = await notesService.createNote(state.newNote)
           state.newNote = {}
           Pop.toast('Note Created', 'success')
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      },
+      async destroyNote(id) {
+        try {
+          await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+              await notesService.destroyNote(id)
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          })
         } catch (error) {
           Pop.toast(error, 'error')
         }

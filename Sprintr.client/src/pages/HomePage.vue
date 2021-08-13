@@ -50,29 +50,6 @@ export default {
       state,
       projects: computed(() => AppState.projects),
       account: computed(() => AppState.account),
-      //   async projectModal() {
-      //     const { value: formValues } = await Swal.fire({
-      //       title: 'Multiple inputs',
-      //       html:
-
-      // `<input id="name" placeholder="Name..." class="swal2-input">
-      // <textarea id="description" placeholder="Description..." class="swal2-input">`,
-      //       focusConfirm: false,
-      //       preConfirm: () => {
-      //         return [
-      //           document.getElementById('name').value,
-      //           document.getElementById('description').value
-      //         ]
-      //       }
-      //     })
-
-      //     if (formValues) {
-      //       Swal.fire(formValues)
-      //       state.newProject = formValues
-      //       this.createProject(state.newProject)
-      //     }
-      //   },
-
       components: {
         ProjectsComponent
       }
