@@ -3,7 +3,7 @@ import { BadRequest, Forbidden } from '../utils/Errors'
 
 class NotesService {
   async getNotesByTaskId(query) {
-    return await dbContext.Note.find(query)
+    return await dbContext.Note.find(query).populate('creator', 'name')
   }
 
   async getNotesByUserId(query) {

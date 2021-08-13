@@ -25,11 +25,13 @@
           <div class="m-4 p-3 border col-md-11">
             <div class="row">
               <div class="col-md-10">
+                <Creator :project="p" />
+                <!-- {{ project.creator.name }} -->
+                <br>
                 {{ n.body }}
                 <br>
-                - {{ n.creatorId }}
                 <br>
-                {{ n.createdAt }}
+                {{ new Date(n.createdAt).toLocaleString() }}
               </div>
               <div class="col-md-2 text-right">
                 <button class="btn btn-outline-primary" @click="destroyNote(n.id)">
@@ -57,12 +59,17 @@ import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2/dist/sweetalert2.all'
+import Creator from './Creator.vue'
 
 export default {
   name: 'Component',
   props: {
     task: {
       type: Object,
+      required: true
+    },
+    projects: {
+      type: Array,
       required: true
     }
   },
@@ -120,7 +127,9 @@ export default {
     }
   },
 
-  components: {}
+  components: {
+    Creator
+  }
 }
 </script>
 

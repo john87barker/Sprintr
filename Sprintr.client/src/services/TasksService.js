@@ -36,8 +36,10 @@ class TasksService {
     }
   }
 
-  async editTask(id, body) {
-    const res = await api.put('api/tasks' + id, body)
+  async editTask(id, editedTask) {
+    console.log(editedTask, 'in the service')
+    const res = await api.put('api/tasks/' + id, editedTask)
+
     AppState.tasks = res.data
   }
 

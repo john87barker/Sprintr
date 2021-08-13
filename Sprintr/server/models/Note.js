@@ -15,6 +15,6 @@ export const Note = new Schema(
 AccountSchema.virtual('creator', {
   localField: 'creatorId',
   ref: 'Account',
-  foreignField: '_id',
+  foreignField: 'id',
   justOne: true
 })

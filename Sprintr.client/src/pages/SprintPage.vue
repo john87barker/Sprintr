@@ -32,7 +32,7 @@
             {{ s.projectName }}
           </div>
           <div>
-            Current Sprint? {{ s.isOpen }}
+            It is {{ s.isOpen }} that this sprint is open
           </div>
 
           <!-- <div class="col-md-6 d-flex justify-content-end">

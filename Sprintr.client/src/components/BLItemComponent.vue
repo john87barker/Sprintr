@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-12 d-flex flex-row">
-    <div v-for="t in tasks" :key="t.id">
+    <div v-for="t in tasks" :key="t.id" :task="t">
       <ol>
         <li class="card p-2">
           <div>
@@ -16,9 +16,9 @@
               </button>
             </div>
             <div class="p-1">
-              <p>task weight:{{ t.weight }} </p>
+              <p>task weight: {{ t.weight }} </p>
               <br>
-              Status:
+              Status:{{ t.status }}
               <select v-model="state.selectedStatus" @change="logStatus" class="pb-1 action">
                 <!-- inline object literal -->
                 <option v-for="s in status" :value="s.name" :key="s.id">
@@ -60,23 +60,23 @@ export default {
     btask: {
       type: Object,
       required: true
+    },
+    task: {
+      type: Object,
+      required: true
     }
-    // sprint: {
-    //   type: Object,
-    //   required: true
-    // }
   },
 
   setup(props) {
     const state = reactive({
-      selectedStatus: 'pending',
+      selectedStatus: '',
       selectedSprint: ''
     })
     return {
       state,
       status: [
         { name: 'pending', value: 1 },
-        { name: 'in-progrss', value: 2 },
+        { name: 'in-progress', value: 2 },
         { name: 'review', value: 3 },
         { name: 'done', value: 4 }
       ],
@@ -85,6 +85,21 @@ export default {
       tasks: computed(() => AppState.tasks.filter(t => t.backlogItemId === props.btask.id)),
       sprints: computed(() => AppState.sprints),
       weight: computed(() => AppState.tasks.weight),
+      // task: computed(() => AppState.task),
+      async logStatus(task) {
+        console.log(task)
+        // do a put status
+        try {
+          const newStatus = state.selectedStatus
+          const editedTask = task
+          editedTask.status = newStatus
+          // debugger
+          console.log(newStatus)
+          await tasksService.editTask(newStatus)
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      },
       async destroyTask(id) {
         try {
           await Swal.fire({
