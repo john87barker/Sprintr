@@ -10,7 +10,7 @@
             X
           </button>
         </div>
-        <!-- {{ t.id }} -->
+        {{ task.id }}
         <div class="modal-body">
           <textarea
             class="form-control"
@@ -23,7 +23,6 @@
         </div>
         <div v-for="n in notes" :key="n.id">
           <div class="m-4 p-3 border">
-            This is the 1st Hard-coded note on the account
             {{ n.body }}
             <br>
             - {{ n.creatorId }}
@@ -45,7 +44,7 @@
 import { reactive } from '@vue/reactivity'
 import { notesService } from '../services/NotesService'
 import Pop from '../utils/Notifier'
-import { computed } from '@vue/runtime-core'
+import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { useRouter } from 'vue-router'
 
@@ -61,6 +60,14 @@ export default {
     const router = useRouter()
     const state = reactive({
       newNote: {}
+    })
+    onMounted(async() => {
+      try {
+        console.log(props.task.id)
+        await notesService.getAllNotesByTaskId(props.task.id)
+      } catch (error) {
+        Pop.toast(error, 'error')
+      }
     })
     return {
       state,

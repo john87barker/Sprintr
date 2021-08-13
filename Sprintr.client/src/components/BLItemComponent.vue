@@ -10,7 +10,7 @@
               <button type="button" data-target="#createNote" data-toggle="modal" class="mx-2 my-1">
                 Notes
               </button>
-              <CreateNote />
+              <CreateNote :task="t" />
               <button @click.prevent="destroyTask(t.id)">
                 Delete
               </button>
@@ -82,7 +82,6 @@ export default {
       ],
       selectedStatus: '',
       sprint: {},
-
       tasks: computed(() => AppState.tasks.filter(t => t.backlogItemId === props.btask.id)),
       sprints: computed(() => AppState.sprints),
       weight: computed(() => AppState.tasks.weight),

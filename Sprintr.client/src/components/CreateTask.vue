@@ -16,7 +16,7 @@
             class="form-control"
             type="text"
             v-model="state.newTask.description"
-            id="description"
+            :id="`description-${btask.id}`"
             placeholder="Task description..."
           >
           <br>
