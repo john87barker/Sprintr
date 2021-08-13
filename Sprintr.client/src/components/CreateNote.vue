@@ -10,7 +10,7 @@
             X
           </button>
         </div>
-        {{ t.id }}
+        <!-- {{ t.id }} -->
         <div class="modal-body">
           <textarea
             class="form-control"

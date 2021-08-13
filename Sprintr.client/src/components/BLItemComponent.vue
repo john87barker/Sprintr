@@ -2,7 +2,7 @@
   <div class="col-md-12 d-flex flex-row">
     <div v-for="t in tasks" :key="t.id">
       <ol>
-        <li class="card border border-primary p-2">
+        <li class="card p-2">
           <div>
             Tasks:
             {{ t.description }}
@@ -21,13 +21,13 @@
               Status:
               <select v-model="state.selectedStatus" @change="logStatus" class="pb-1 action">
                 <!-- inline object literal -->
-                <option v-for="s in status" :value="s.id" :key="s.id">
+                <option v-for="s in status" :value="s.name" :key="s.id">
                   {{ s.name }}
                 </option>
               </select>
               <div class="mt-1">
                 Sprint:
-                <select v-model="state.selectedSprint" @change="updateSprint(t.description)" :value="sprint.name" class="pb-1 action">
+                <select v-model="state.selectedSprint" :value="sprint.name" class="pb-1 action">
                   <!-- inline object literal -->
                   <option v-for="sprint in sprints" :value="sprint.id" :key="sprint.id">
                     {{ sprint.name }}
@@ -39,7 +39,7 @@
         </li>
       </ol>
     </div>
-    <CreateNote :task="t" />
+    <!-- <CreateNote :task="t" /> -->
     <!-- <div> Total Weight</div> -->
   </div>
 </template>
@@ -51,11 +51,8 @@ import { tasksService } from '../services/TasksService'
 import Swal from 'sweetalert2/dist/sweetalert2.all'
 import Pop from '../utils/Notifier'
 import { logger } from '../utils/Logger'
-<<<<<<< HEAD
 import { sprintsService } from '../services/SprintsService'
-=======
 import CreateNote from '../components/CreateNote.vue'
->>>>>>> 563409cb2581ff284f26004abb8129909f779300
 
 export default {
   name: 'Component',
@@ -72,7 +69,7 @@ export default {
 
   setup(props) {
     const state = reactive({
-      selectedStatus: '',
+      selectedStatus: 'pending',
       selectedSprint: ''
     })
     return {
@@ -83,23 +80,25 @@ export default {
         { name: 'review', value: 3 },
         { name: 'done', value: 4 }
       ],
+      selectedStatus: '',
       sprint: {},
 
       tasks: computed(() => AppState.tasks.filter(t => t.backlogItemId === props.btask.id)),
       sprints: computed(() => AppState.sprints),
+      weight: computed(() => AppState.tasks.weight),
 
       // async totalWeight() {
       //   const tWeights = AppState.tasks.filter(t => t.backlogItemId === props.btask).weight
       //   const totalWeight = tWeights => tWeights.reduce((a, b) => a + b, 0)
       //   return totalWeight
       // },
-      async updateSprint(id) {
-        try {
-          await sprintsService.updateSprint(id)
-        } catch (error) {
-          Pop.toast(error, 'error')
-        }
-      },
+      // async updateSprint(id) {
+      //   try {
+      //     await sprintsService.updateSprint(id)
+      //   } catch (error) {
+      //     Pop.toast(error, 'error')
+      //   }
+      // },
       async destroyTask(id) {
         try {
           await Swal.fire({

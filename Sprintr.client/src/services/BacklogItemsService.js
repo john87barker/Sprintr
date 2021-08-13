@@ -19,6 +19,14 @@ class BacklogItemsService {
     }
   }
 
+  async countWeight(id, weight) {
+    const res = await api.put('api/backlogitem' + id, weight)
+    const count = 0
+    weight += count
+    console.log(count)
+    AppState.backlogItems.weight = res.data
+  }
+
   async editBacklogItem(id, body) {
     const res = await api.put('api/backlogitem' + id, body)
     AppState.backlogItems = res.data

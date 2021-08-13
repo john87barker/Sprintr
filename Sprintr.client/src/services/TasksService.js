@@ -21,10 +21,10 @@ class TasksService {
     AppState.activeTask = res.data
   }
 
-  async getTaskBySprintId(id) {
-    const res = await api.get(`api/tasks/${id}`)
-    AppState.activeTask = res.data
-  }
+  // async getTaskBySprintId(id) {
+  //   const res = await api.get(`api/tasks/${id}`)
+  //   AppState.activeTask = res.data
+  // }
 
   async createTask(newTask) {
     try {

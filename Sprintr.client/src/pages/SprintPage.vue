@@ -68,12 +68,11 @@ export default {
   setup() {
     const route = useRoute()
     const state = reactive({
-      selectedTask: ''
+      // selectedTask: ''
     })
     onMounted(async() => {
       try {
         await projectsService.getProjectById(route.params.id)
-        console.log('PD on mounted')
         await sprintsService.getAllSprintsByProjectId(route.params.id)
       } catch (error) {
         Pop.toast('You failed' + error, 'error')

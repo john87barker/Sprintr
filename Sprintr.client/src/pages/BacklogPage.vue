@@ -19,7 +19,7 @@
   <div class="row bg-secondary-dark mx-5">
     <div class="col-md-10 offset-1 card mb-3 shadow py-2 bg-warning" v-for="b in activeBacklog" :key="b.id">
       <!-- THIS IS THE CARD -->
-      <div class="row border ">
+      <div class="row  ">
         <div class="col-md-1">
           <button class="btn btn-outline-primary" @click.prevent="destroyBacklogItem(b.id)">
             X
@@ -32,10 +32,11 @@
             description: {{ b.body }}
           </p>
         </div>
-        <div class="col-md-3 border border-primary">
+        <div class="col-md-3 ">
           Total Weight:
           <br>
-          <p>{{ weight }}</p>
+          {{ weight }}
+          <!-- <p>{{ weight }}</p> -->
         </div>
         <div class="col-md-3 d-flex justify-content-end">
           <button class="btn btn-outline-primary btn-sm m-2" :data-target="'#create-task'+ b.id" data-toggle="modal">
@@ -67,18 +68,18 @@ export default {
 
   name: 'Backlog',
   props: {
-    count: {
-      type: Number,
-      required: true,
-      total: 0
-    }
+    // count: {
+    //   type: Number,
+    //   required: true,
+    //   total: 0
+    // }
   },
   setup(props) {
     const route = useRoute()
     onMounted(async() => {
       try {
         await projectsService.getProjectById(route.params.id)
-        console.log('PD on mounted')
+        // await backlogItemsService.countWeight()
         await backlogItemsService.getBacklogItemByProjectId(route.params.id)
         await tasksService.getAllTasksByProjectId(route.params.id)
         // await tasksService.getAllTasksByBacklogId(route.params.id)
@@ -94,9 +95,9 @@ export default {
       tasks: computed(() => AppState.tasks),
       weight: computed(() => AppState.tasks.weight),
 
-      async counter(count) {
+      // async counter(count) {
 
-      },
+      // },
 
       async destroyBacklogItem(id) {
         console.log(id)
