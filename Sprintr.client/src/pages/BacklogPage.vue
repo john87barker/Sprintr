@@ -17,7 +17,7 @@
     <CreateBacklogItem />
   </div>
   <div class="row bg-secondary-dark mx-5">
-    <div class="col-md-10 offset-1 card mb-3 shadow py-2" v-for="b in activeBacklog" :key="b.id">
+    <div class="col-md-10 offset-1 card mb-3 shadow py-2 bg-warning" v-for="b in activeBacklog" :key="b.id">
       <!-- THIS IS THE CARD -->
       <div class="row border ">
         <div class="col-md-1">
@@ -29,7 +29,7 @@
           <span class="text-uppercase"> 🐢 {{ b.name }} </span>
           <br>
           <p class="text-italic pt-1">
-            desciption: {{ b.body }}
+            description: {{ b.body }}
           </p>
         </div>
         <div class="col-md-6 d-flex justify-content-end">
@@ -38,6 +38,8 @@
           </button>
         </div>
         <hr>
+      </div>
+      <div class="row">
         <BLItemComponent :btask="b" />
       </div>
       <CreateTask :btask="b" />

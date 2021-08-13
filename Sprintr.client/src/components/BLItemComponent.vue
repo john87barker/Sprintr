@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col-md-12 d-flex flex-row">
     <div v-for="t in tasks" :key="t.id">
       <ol>
         <li class="card border border-primary p-2">
