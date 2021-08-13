@@ -16,6 +16,11 @@
           Sprints
         </router-link>
       </div>
+      <div class="col-md-7 text-right pt-2">
+        <button class="btn btn-warning" title="Delete" @click="destroyProject(project.id)">
+          X
+        </button>
+      </div>
     </div>
     <router-view />
   </div>
@@ -40,6 +45,7 @@ export default {
   // },
   name: 'Backlog',
   setup() {
+    const router = useRouter()
     const route = useRoute()
     onMounted(async() => {
       try {
@@ -71,6 +77,31 @@ export default {
           }).then(async(result) => {
             if (result.isConfirmed) {
               await backlogItemsService.destroyBacklogItem(id)
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          })
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      },
+      async destroyProject(id) {
+        try {
+          await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+              router.push({ name: 'Home' })
+              await projectsService.destroyProject(id)
               Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',
