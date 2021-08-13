@@ -19,7 +19,7 @@
   <div class="row bg-secondary-dark mx-5">
     <div class="col-md-10 offset-1 card mb-3 shadow py-2" v-for="b in activeBacklog" :key="b.id">
       <!-- THIS IS THE CARD -->
-      <div class="row">
+      <div class="row border ">
         <div class="col-md-1">
           <button class="btn btn-outline-primary" @click.prevent="destroyBacklogItem(b.id)">
             X

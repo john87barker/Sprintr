@@ -1,19 +1,19 @@
 <template>
   <div class="component container-fluid">
-    <div class="row  bg-info bar ">
+    <div class="row  bg-info bar  ">
       <div class="col-md-2 pr-0">
         Project:
         <br>
         <em> {{ project.name }}</em>
       </div>
-      <div class="col-md-1 action text-left">
-        <router-link class="btn btn-outline-dark pb-3 action" :to="{ name: 'BacklogPage'}">
+      <div class="col-md-1 action text-left pt-2">
+        <router-link class="btn btn-outline-dark py-3 action" :to="{ name: 'BacklogPage'}">
           Backlog
         </router-link>
       </div>
-      <div class="col-md-1 action ">
+      <div class="col-md-1 action pt-2">
         <router-link class="btn btn-outline-dark pb-3 ml-3" :to="{ name: 'SprintPage'}">
-          Sprint
+          Sprints
         </router-link>
       </div>
     </div>
@@ -92,7 +92,7 @@ export default {
 
 <style lang="scss" scoped>
 .bar{
-  height: 3rem;
+  height: 4rem;
 }
 
 </style>
