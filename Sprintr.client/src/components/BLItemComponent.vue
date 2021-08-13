@@ -7,9 +7,10 @@
             Tasks:
             {{ t.description }}
             <div>
-              <button class="mx-2 my-1">
+              <button type="button" data-target="#createNote" data-toggle="modal" class="mx-2 my-1">
                 Notes
               </button>
+              <CreateNote />
               <button @click.prevent="destroyTask(t.id)">
                 Delete
               </button>
@@ -38,6 +39,7 @@
         </li>
       </ol>
     </div>
+    <CreateNote :task="t" />
     <!-- <div> Total Weight</div> -->
   </div>
 </template>
@@ -49,7 +51,11 @@ import { tasksService } from '../services/TasksService'
 import Swal from 'sweetalert2/dist/sweetalert2.all'
 import Pop from '../utils/Notifier'
 import { logger } from '../utils/Logger'
+<<<<<<< HEAD
 import { sprintsService } from '../services/SprintsService'
+=======
+import CreateNote from '../components/CreateNote.vue'
+>>>>>>> 563409cb2581ff284f26004abb8129909f779300
 
 export default {
   name: 'Component',
@@ -121,7 +127,9 @@ export default {
 
     }
   },
-  components: {}
+  components: {
+    CreateNote
+  }
 }
 </script>
 

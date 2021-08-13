@@ -16,9 +16,11 @@ class NotesService {
 
   async createNote(newNote) {
     try {
+      logger.log(newNote)
       const res = await api.post('api/notes', newNote)
       logger.log(res.data)
       AppState.notes = [...AppState.notes, res.data]
+      return res.data
     } catch (error) {
       logger.error(error)
     }
