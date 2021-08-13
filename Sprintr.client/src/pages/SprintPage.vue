@@ -31,14 +31,12 @@
             🐢 {{ s.name }}<br>
             {{ s.projectName }}
           </div>
-          <div class="col-md-6 d-flex justify-content-end">
+          <!-- <div class="col-md-6 d-flex justify-content-end">
             <button class="btn btn-outline-primary btn-sm m-2">
               Add Task +
             </button>
-            <p class="pl-2">
-              0/0 Tasks Completed
-            </p>
-          </div>
+
+          </div> -->
         </div>
       </div>
     </div>

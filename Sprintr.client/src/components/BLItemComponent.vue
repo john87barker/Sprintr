@@ -2,39 +2,47 @@
   <div class="col-md-12 d-flex flex-row">
     <div v-for="t in tasks" :key="t.id">
       <ol>
-        <li class="card shadow p-3 mt-3 bg-warning">
+        <li class="card border border-primary p-2">
           <div>
             Tasks:
+            {{ t.description }}
             <div>
-              <button class="btn btn-info text-light">
-                +Deets
+              <button class="mx-2 my-1">
+                Notes
               </button>
-              <button class="btn btn-success" @click.prevent="destroyTask(t.id)">
+              <button @click.prevent="destroyTask(t.id)">
                 Delete
               </button>
             </div>
-            {{ t.weight }}
-            <br>
-            {{ t.description }}
-            <br>
-            {{ t.status }}
+            <div class="p-1">
+              <p>task weight:{{ t.weight }} </p>
+              <br>
+              Status:
+              <select v-model="state.selectedStatus" @change="logStatus" class="pb-1">
+                <!-- inline object literal -->
+                <option v-for="s in status" :value="s.id" :key="s.id">
+                  {{ s.name }}
+                </option>
+              </select>
+            </div>
           </div>
         </li>
       </ol>
     </div>
-    <div> Total Weight</div>
-    <NoteModal />
+    <!-- <div> Total Weight</div> -->
   </div>
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core'
+import { computed, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { tasksService } from '../services/TasksService'
 import Swal from 'sweetalert2/dist/sweetalert2.all'
 import Pop from '../utils/Notifier'
-export default {
+import { logger } from '../utils/Logger'
 
+export default {
+  name: 'Component',
   props: {
     btask: {
       type: Object,
@@ -42,11 +50,23 @@ export default {
     }
   },
 
-  name: 'Component',
   setup(props) {
+    const state = reactive({
+      selectedStatus: ''
+    })
     return {
-
+      state,
+      status: [
+        { name: 'pending' },
+        { name: 'in-progrss' },
+        { name: 'review' },
+        { name: 'done' }
+      ],
+      logStatus() {
+        logger.log(state.selectedStatus)
+      },
       tasks: computed(() => AppState.tasks.filter(t => t.backlogItemId === props.btask.id)),
+
       // async totalWeight() {
       //   const tWeights = AppState.tasks.filter(t => t.backlogItemId === props.btask).weight
       //   const totalWeight = tWeights => tWeights.reduce((a, b) => a + b, 0)

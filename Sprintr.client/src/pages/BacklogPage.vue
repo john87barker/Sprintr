@@ -25,18 +25,17 @@
             X
           </button>
         </div>
-        <div class="col-md-5 text-uppercase ">
-          🐢 {{ b.name }} Total Weight: <br>
-          {{ b.body }}
+        <div class="col-md-5  ">
+          <span class="text-uppercase"> 🐢 {{ b.name }} </span>
+          <br>
+          <p class="text-italic pt-1">
+            description: {{ b.body }}
+          </p>
         </div>
         <div class="col-md-6 d-flex justify-content-end">
           <button class="btn btn-outline-primary btn-sm m-2" :data-target="'#create-task'+ b.id" data-toggle="modal">
             Add Task +
           </button>
-
-          <p class="pl-2">
-            0/0 Tasks Completed
-          </p>
         </div>
         <hr>
       </div>
