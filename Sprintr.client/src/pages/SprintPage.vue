@@ -31,6 +31,10 @@
             🐢 {{ s.name }}<br>
             {{ s.projectName }}
           </div>
+          <div>
+            Current Sprint? {{ s.isOpen }}
+          </div>
+
           <!-- <div class="col-md-6 d-flex justify-content-end">
             <button class="btn btn-outline-primary btn-sm m-2">
               Add Task +
@@ -44,7 +48,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onMounted, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { projectsService } from '../services/ProjectsService'
 import { useRoute, useRouter } from 'vue-router'
@@ -63,6 +67,9 @@ export default {
   name: 'Sprint',
   setup() {
     const route = useRoute()
+    const state = reactive({
+      selectedTask: ''
+    })
     onMounted(async() => {
       try {
         await projectsService.getProjectById(route.params.id)
@@ -73,11 +80,16 @@ export default {
       }
     })
     return {
+      state,
+      task: {},
+
       backlogs: computed(() => AppState.backlogs),
       project: computed(() => AppState.activeProject),
       activeProject: computed(() => AppState.activeProject),
       activeSprint: computed(() => AppState.activeSprint),
       sprints: computed(() => AppState.sprints),
+      tasks: computed(() => AppState.tasks),
+
       async destroySprint(id) {
         console.log(id)
         try {

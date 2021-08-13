@@ -18,15 +18,15 @@
               <p>task weight:{{ t.weight }} </p>
               <br>
               Status:
-              <select v-model="state.selectedStatus" @change="logStatus" class="pb-1">
+              <select v-model="state.selectedStatus" @change="logStatus" class="pb-1 action">
                 <!-- inline object literal -->
                 <option v-for="s in status" :value="s.id" :key="s.id">
                   {{ s.name }}
                 </option>
               </select>
-              <div>
+              <div class="mt-1">
                 Sprint:
-                <select v-model="state.selectedSprint" :value="sprint.name" @change="logStatus" class="pb-1">
+                <select v-model="state.selectedSprint" @change="updateSprint(t.description)" :value="sprint.name" class="pb-1 action">
                   <!-- inline object literal -->
                   <option v-for="sprint in sprints" :value="sprint.id" :key="sprint.id">
                     {{ sprint.name }}
@@ -49,6 +49,7 @@ import { tasksService } from '../services/TasksService'
 import Swal from 'sweetalert2/dist/sweetalert2.all'
 import Pop from '../utils/Notifier'
 import { logger } from '../utils/Logger'
+import { sprintsService } from '../services/SprintsService'
 
 export default {
   name: 'Component',
@@ -57,6 +58,10 @@ export default {
       type: Object,
       required: true
     }
+    // sprint: {
+    //   type: Object,
+    //   required: true
+    // }
   },
 
   setup(props) {
@@ -67,10 +72,10 @@ export default {
     return {
       state,
       status: [
-        { name: 'pending' },
-        { name: 'in-progrss' },
-        { name: 'review' },
-        { name: 'done' }
+        { name: 'pending', value: 1 },
+        { name: 'in-progrss', value: 2 },
+        { name: 'review', value: 3 },
+        { name: 'done', value: 4 }
       ],
       sprint: {},
 
@@ -82,6 +87,13 @@ export default {
       //   const totalWeight = tWeights => tWeights.reduce((a, b) => a + b, 0)
       //   return totalWeight
       // },
+      async updateSprint(id) {
+        try {
+          await sprintsService.updateSprint(id)
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      },
       async destroyTask(id) {
         try {
           await Swal.fire({

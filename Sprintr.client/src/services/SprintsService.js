@@ -1,6 +1,7 @@
 import { logger } from '../utils/Logger'
 import { AppState } from '../AppState'
 import { api } from './AxiosService'
+import { tasksService } from './TasksService'
 
 class SprintsService {
   async getAllSprintsByProjectId(id) {
@@ -22,6 +23,11 @@ class SprintsService {
     } catch (error) {
       logger.error(error)
     }
+  }
+
+  async updateSprint(id) {
+    console.log('in the Sprint service', id)
+    await tasksService.getTaskById(id)
   }
 
   async editSprint(id, body) {

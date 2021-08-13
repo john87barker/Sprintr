@@ -31,14 +31,14 @@
       </ul>
       <span class="navbar-text">
         <button
-          class="btn btn-outline-primary text-uppercase"
+          class="btn btn-outline-primary text-uppercase action"
           @click="login"
           v-if="!user.isAuthenticated"
         >
           Login
         </button>
 
-        <div class="dropdown" v-else>
+        <div class="dropdown action" v-else>
           <div
             class="dropdown-toggle"
             @click="state.dropOpen = !state.dropOpen"

@@ -1,18 +1,18 @@
 <template>
-  <div class="component container-fluid">
+  <div class="component container-fluid text-light">
     <div class="row  bg-info bar  ">
       <div class="col-md-2 pr-0">
         Project:
         <br>
         <em> {{ project.name }}</em>
       </div>
-      <div class="col-md-1 action text-left pt-2">
-        <router-link class="btn btn-outline-dark pb-3 action" :to="{ name: 'BacklogPage'}">
+      <div class="col-md-1 action text-left pt-2 text-light">
+        <router-link class="btn btn-outline-light pb-3 action" :to="{ name: 'BacklogPage'}">
           Backlog
         </router-link>
       </div>
-      <div class="col-md-1 action pt-2">
-        <router-link class="btn btn-outline-dark pb-3 ml-3" :to="{ name: 'SprintPage'}">
+      <div class="col-md-1 action pt-2 text-light">
+        <router-link class="btn btn-outline-light pb-3 ml-3" :to="{ name: 'SprintPage'}">
           Sprints
         </router-link>
       </div>

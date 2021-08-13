@@ -32,7 +32,12 @@
             description: {{ b.body }}
           </p>
         </div>
-        <div class="col-md-6 d-flex justify-content-end">
+        <div class="col-md-3 border border-primary">
+          Total Weight:
+          <br>
+          <p>{{ weight }}</p>
+        </div>
+        <div class="col-md-3 d-flex justify-content-end">
           <button class="btn btn-outline-primary btn-sm m-2" :data-target="'#create-task'+ b.id" data-toggle="modal">
             Add Task +
           </button>
@@ -61,7 +66,14 @@ import { tasksService } from '../services/TasksService'
 export default {
 
   name: 'Backlog',
-  setup() {
+  props: {
+    count: {
+      type: Number,
+      required: true,
+      total: 0
+    }
+  },
+  setup(props) {
     const route = useRoute()
     onMounted(async() => {
       try {
@@ -80,6 +92,11 @@ export default {
       activeProject: computed(() => AppState.activeProject),
       activeBacklog: computed(() => AppState.activeBacklog),
       tasks: computed(() => AppState.tasks),
+      weight: computed(() => AppState.tasks.weight),
+
+      async counter(count) {
+
+      },
 
       async destroyBacklogItem(id) {
         console.log(id)
