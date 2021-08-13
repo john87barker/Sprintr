@@ -11,7 +11,7 @@ export class TasksController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getOne)
-      .get('/:id/notes', this.getNotesById)
+      .get('/:id/notes', this.getNotesByTaskId)
       // .get('/:id/backlogid', this.getByBacklogId)
       .post('', this.create)
       .put('/:id', this.edit)
@@ -37,9 +37,9 @@ export class TasksController extends BaseController {
     }
   }
 
-  async getNotesById(req, res, next) {
+  async getNotesByTaskId(req, res, next) {
     try {
-      const notes = await notesService.getNotesById({ noteId: req.params.id })
+      const notes = await notesService.getNotesByTaskId({ taskId: req.params.id })
       res.send(notes)
     } catch (error) {
 
