@@ -1,13 +1,15 @@
 <template>
-  <div>
+  <div class="col-md-12 d-flex flex-row">
     <div v-for="t in tasks" :key="t.id">
       <ol>
-        <li class="card">
+        <li class="card shadow p-3 mt-3 bg-warning">
           <div>
             Tasks:
             <div>
-              <button>+Deets</button>
-              <button @click.prevent="destroyTask(t.id)">
+              <button class="btn btn-info text-light">
+                +Deets
+              </button>
+              <button class="btn btn-success" @click.prevent="destroyTask(t.id)">
                 Delete
               </button>
             </div>
@@ -21,6 +23,7 @@
       </ol>
     </div>
     <div> Total Weight</div>
+    <NoteModal />
   </div>
 </template>
 

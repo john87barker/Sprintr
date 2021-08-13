@@ -32,7 +32,7 @@
           >
         </div>
         <div class="modal-footer">
-          <button type="submit" @click="createTask" class="btn btn-primary" data-toggle="modal" data-target="#createTask">
+          <button type="button" @click.stop="createTask" class="btn btn-primary" data-toggle="modal" data-target="#create-task">
             Create Task
           </button>
         </div>
@@ -48,6 +48,7 @@ import Pop from '../utils/Notifier'
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { useRoute, useRouter } from 'vue-router'
+import $ from 'jquery'
 
 export default {
   name: 'Component',
