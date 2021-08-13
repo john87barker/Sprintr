@@ -3,7 +3,7 @@
     <!-- I want the following idea here v-if="projectId === b.projectId" -->
     <div class="row">
       <div class="col-md-1">
-        <button class="btn btn-outline-primary" @click.prevent="destroySprint(sprint.id)">
+        <button class="btn btn-outline-primary" title="delete" @click.prevent="destroySprint(sprint.id)">
           X
         </button>
       </div>

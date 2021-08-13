@@ -21,7 +21,7 @@
       <!-- THIS IS THE CARD -->
       <div class="row  ">
         <div class="col-md-1">
-          <button class="btn btn-outline-primary" @click.prevent="destroyBacklogItem(b.id)">
+          <button class="btn btn-outline-primary" title="delete" @click.prevent="destroyBacklogItem(b.id)">
             X
           </button>
         </div>

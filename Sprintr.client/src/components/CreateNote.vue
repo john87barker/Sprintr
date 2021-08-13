@@ -34,7 +34,7 @@
                 {{ new Date(n.createdAt).toLocaleString() }}
               </div>
               <div class="col-md-2 text-right">
-                <button class="btn btn-outline-primary" title="close" @click="destroyNote(n.id)">
+                <button class="btn btn-outline-primary" title="delete" @click="destroyNote(n.id)">
                   X
                 </button>
               </div>
