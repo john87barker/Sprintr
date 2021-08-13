@@ -6,7 +6,7 @@
           <h5 class="modal-title" id="exampleModalLabel">
             Add Task
           </h5>
-          <button type="button" class="btn-close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="btn-close btn btn-outline-danger" title="delete" data-dismiss="modal" aria-label="Close">
             X
           </button>
         </div>

@@ -11,7 +11,7 @@
                 Notes
               </button>
               <CreateNote :task="t" />
-              <button @click.prevent="destroyTask(t.id)">
+              <button title="delete" @click.prevent="destroyTask(t.id)">
                 Delete
               </button>
             </div>

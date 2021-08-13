@@ -3,7 +3,7 @@
     <router-link :to="{ name: 'BacklogPage', params: {id: project.id}}" @click.stop="">
       <div class="row my-4">
         <div class="col-12 action text-right mb-2">
-          <button class="btn btn-outline-primary" @click.stop.prevent="destroyProject(project.id)">
+          <button class="btn btn-outline-primary" title="Delete" @click.stop.prevent="destroyProject(project.id)">
             X
           </button>
         </div>
