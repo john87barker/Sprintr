@@ -75,6 +75,7 @@ export class NotesController extends BaseController {
 
   async destroy(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       await notesService.destroy(req.params.id)
       res.send({ message: 'You deleted that ****!' })
     } catch (error) {

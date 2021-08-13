@@ -20,6 +20,7 @@ export class TasksController extends BaseController {
 
   async getAll(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const tasks = await tasksService.getAll(req.query)
       res.send(tasks)
     } catch (error) {
@@ -39,20 +40,13 @@ export class TasksController extends BaseController {
 
   async getNotesByTaskId(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const notes = await notesService.getNotesByTaskId({ taskId: req.params.id })
       res.send(notes)
     } catch (error) {
 
     }
   }
-
-  // async getByBacklogId(req, res, next) {
-  //   try {
-
-  //   } catch (error) {
-
-  //   }
-  // }
 
   async create(req, res, next) {
     try {
@@ -77,6 +71,7 @@ export class TasksController extends BaseController {
 
   async destroy(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       res.send(await tasksService.destroy(req.params.id))
     } catch (error) {
       next(error, 'could not delete')

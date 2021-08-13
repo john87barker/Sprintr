@@ -19,45 +19,8 @@
     </div>
     <div class="row bg-secondary-dark mx-5">
       <!-- NOTE Creating Sprint v-model here -->
-      <div class="col-md-10 offset-1 card mb-3 shadow py-2" v-for="s in sprints" :key="s.id">
-        <!-- I want the following idea here v-if="projectId === b.projectId" -->
-        <div class="row">
-          <div class="col-md-1">
-            <button class="btn btn-outline-primary" @click.prevent="destroySprint(s.id)">
-              X
-            </button>
-          </div>
-          <div class="col-md-11 pb-2 text-uppercase ">
-            🐢 {{ s.name }}<br>
-            {{ s.projectName }} It is {{ s.isOpen }} that this sprint is open
-          </div>
-
-          <div v-for="t in tasks" :key="t.id" :task="t">
-            <ol>
-              <li class="card p-2">
-                <div>
-                  Tasks:
-                  {{ t.description }}
-                  <div>
-                    <button type="button" data-target="#createNote" data-toggle="modal" class="mx-2 my-1">
-                      Notes
-                    </button>
-                    <CreateNote :task="t" />
-                    <button @click.prevent="destroyTask(t.id)">
-                      Delete
-                    </button>
-                  </div>
-                  <div class="p-1">
-                    <p>task weight: {{ t.weight }} </p>
-                    <br>
-                    Status:{{ t.status }}
-                  </div>
-                </div>
-              </li>
-            </ol>
-          </div>
-        </div>
-      </div>
+      <SprintCard v-for="s in sprints" :key="s.id" :sprint="s" />
+      <!--  -->
     </div>
   </div>
 </template>
@@ -103,34 +66,8 @@ export default {
       project: computed(() => AppState.activeProject),
       activeProject: computed(() => AppState.activeProject),
       activeSprint: computed(() => AppState.activeSprint),
-      sprints: computed(() => AppState.sprints),
-      tasks: computed(() => AppState.tasks),
+      sprints: computed(() => AppState.sprints)
 
-      async destroySprint(id) {
-        console.log(id)
-        try {
-          await Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-          }).then(async(result) => {
-            if (result.isConfirmed) {
-              await sprintsService.destroySprint(id)
-              Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
-            }
-          })
-        } catch (error) {
-          Pop.toast(error, 'error')
-        }
-      }
     }
   },
   components: {

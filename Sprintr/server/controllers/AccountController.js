@@ -18,6 +18,7 @@ export class AccountController extends BaseController {
 
   async getProjectsByUserId(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const projects = await projectsService.getProjectsByUserId({ userId: req.params.id })
       res.send(projects)
     } catch (error) {
@@ -27,6 +28,7 @@ export class AccountController extends BaseController {
 
   async getTasksByUserId(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const tasks = await tasksService.getTasksByUserId({ userId: req.params.id })
       res.send(tasks)
     } catch (error) {
@@ -36,6 +38,7 @@ export class AccountController extends BaseController {
 
   async getNotesByUserId(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const notes = await notesService.getNotesByUserId({ userId: req.params.id })
       res.send(notes)
     } catch (error) {
@@ -45,6 +48,7 @@ export class AccountController extends BaseController {
 
   async getUserAccount(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const account = await accountService.getAccount(req.userInfo)
       res.send(account)
     } catch (error) {

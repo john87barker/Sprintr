@@ -6,11 +6,11 @@
           <h5 class="modal-title" id="exampleModalLabel">
             Notes
           </h5>
-          <button type="button" class="btn-close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="btn-close btn btn-outline-danger" data-dismiss="modal" aria-label="Close" title="close">
             X
           </button>
         </div>
-        {{ task.id }}
+
         <div class="modal-body modal-body-scrollable">
           <textarea
             class="form-control"
@@ -34,7 +34,7 @@
                 {{ new Date(n.createdAt).toLocaleString() }}
               </div>
               <div class="col-md-2 text-right">
-                <button class="btn btn-outline-primary" @click="destroyNote(n.id)">
+                <button class="btn btn-outline-primary" title="close" @click="destroyNote(n.id)">
                   X
                 </button>
               </div>

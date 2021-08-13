@@ -19,6 +19,7 @@ export class SprintsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const sprints = await sprintsService.getAll(req.query)
       res.send(sprints)
     } catch (error) {
@@ -38,6 +39,7 @@ export class SprintsController extends BaseController {
 
   async getTasksById(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const tasks = await tasksService.getTasksById({ taskId: req.params.id })
       res.send(tasks)
     } catch (error) {
@@ -68,6 +70,7 @@ export class SprintsController extends BaseController {
 
   async destroy(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       await sprintsService.destroy(req.params.id)
       res.send({ message: 'You deleted that ****!' })
     } catch (error) {

@@ -23,6 +23,7 @@ export class ProjectsController extends BaseController {
 
   async getTasksByProjectId(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const tasks = await tasksService.getTasksByProjectId({ projectId: req.params.id })
       res.send(tasks)
     } catch (error) {
@@ -32,6 +33,7 @@ export class ProjectsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const projects = await projectsService.getAll(req.query)
       res.send(projects)
     } catch (error) {
@@ -51,6 +53,7 @@ export class ProjectsController extends BaseController {
 
   async getSprintById(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const sprint = await sprintsService.getSprintById({ projectId: req.params.id })
       res.send(sprint)
     } catch (error) {
@@ -60,6 +63,7 @@ export class ProjectsController extends BaseController {
 
   async getBacklogItemById(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const backlogItem = await backlogItemsService.getBacklogItemById({ projectId: req.params.id })
       res.send(backlogItem)
     } catch (error) {
@@ -90,6 +94,7 @@ export class ProjectsController extends BaseController {
 
   async destroy(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       res.send(await projectsService.destroy(req.params.id, req.userInfo.id))
     } catch (error) {
       next(error, 'could not delete')

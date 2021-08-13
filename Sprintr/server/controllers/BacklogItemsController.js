@@ -19,6 +19,7 @@ export class BacklogItemsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const backlogItems = await backlogItemsService.getAll(req.query)
       res.send(backlogItems)
     } catch (error) {
@@ -38,6 +39,7 @@ export class BacklogItemsController extends BaseController {
 
   async getTasksById(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const tasks = await tasksService.getTasksById({ taskId: req.params.id })
       res.send(tasks)
     } catch (error) {
@@ -68,6 +70,7 @@ export class BacklogItemsController extends BaseController {
 
   async destroy(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       await backlogItemsService.destroy(req.params.id)
       res.send({ message: 'You deleted that ****!' })
     } catch (error) {
