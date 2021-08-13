@@ -7,7 +7,7 @@
         <em> {{ project.name }}</em>
       </div>
       <div class="col-md-1 action text-left pt-2">
-        <router-link class="btn btn-outline-dark py-3 action" :to="{ name: 'BacklogPage'}">
+        <router-link class="btn btn-outline-dark pb-3 action" :to="{ name: 'BacklogPage'}">
           Backlog
         </router-link>
       </div>
