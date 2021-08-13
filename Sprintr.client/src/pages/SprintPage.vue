@@ -27,20 +27,35 @@
               X
             </button>
           </div>
-          <div class="col-md-5 text-uppercase ">
+          <div class="col-md-11 pb-2 text-uppercase ">
             🐢 {{ s.name }}<br>
-            {{ s.projectName }}
-          </div>
-          <div>
-            It is {{ s.isOpen }} that this sprint is open
+            {{ s.projectName }} It is {{ s.isOpen }} that this sprint is open
           </div>
 
-          <!-- <div class="col-md-6 d-flex justify-content-end">
-            <button class="btn btn-outline-primary btn-sm m-2">
-              Add Task +
-            </button>
-
-          </div> -->
+          <div v-for="t in tasks" :key="t.id" :task="t">
+            <ol>
+              <li class="card p-2">
+                <div>
+                  Tasks:
+                  {{ t.description }}
+                  <div>
+                    <button type="button" data-target="#createNote" data-toggle="modal" class="mx-2 my-1">
+                      Notes
+                    </button>
+                    <CreateNote :task="t" />
+                    <button @click.prevent="destroyTask(t.id)">
+                      Delete
+                    </button>
+                  </div>
+                  <div class="p-1">
+                    <p>task weight: {{ t.weight }} </p>
+                    <br>
+                    Status:{{ t.status }}
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
         </div>
       </div>
     </div>
@@ -56,6 +71,7 @@ import Pop from '../utils/Notifier'
 import CreateSprint from '../components/CreateSprint.vue'
 import Swal from 'sweetalert2/dist/sweetalert2.all'
 import { sprintsService } from '../services/SprintsService'
+import { tasksService } from '../services/TasksService'
 
 export default {
   // props: {
@@ -74,6 +90,7 @@ export default {
       try {
         await projectsService.getProjectById(route.params.id)
         await sprintsService.getAllSprintsByProjectId(route.params.id)
+        // await tasksService.getAllTasksBySprintId(route.params.id)
       } catch (error) {
         Pop.toast('You failed' + error, 'error')
       }

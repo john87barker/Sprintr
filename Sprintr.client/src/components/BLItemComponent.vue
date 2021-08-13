@@ -19,7 +19,7 @@
               <p>task weight: {{ t.weight }} </p>
               <br>
               Status:{{ t.status }}
-              <select v-model="state.selectedStatus" @change="logStatus" class="pb-1 action">
+              <select v-model="state.selectedStatus" @change="logStatus(t.id)" class="pb-1 action">
                 <!-- inline object literal -->
                 <option v-for="s in status" :value="s.name" :key="s.id">
                   {{ s.name }}
@@ -27,7 +27,7 @@
               </select>
               <div class="mt-1">
                 Sprint:
-                <select v-model="state.selectedSprint" :value="sprint.name" class="pb-1 action">
+                <select v-model="state.selectedSprint" @change="assignSprint(t.id)" :value="sprint.name" class="pb-1 action">
                   <!-- inline object literal -->
                   <option v-for="sprint in sprints" :value="sprint.id" :key="sprint.id">
                     {{ sprint.name }}
@@ -91,11 +91,19 @@ export default {
         // do a put status
         try {
           const newStatus = state.selectedStatus
-          const editedTask = task
-          editedTask.status = newStatus
+          // const editedTask = task
+          // editedTask.status = newStatus
           // debugger
           console.log(newStatus)
-          await tasksService.editTask(newStatus)
+          await tasksService.editTask(task, newStatus)
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      },
+      async assignSprint(task) {
+        try {
+          const newSprint = state.selectedSprint
+          await tasksService.editTaskBySprint(task, newSprint)
         } catch (error) {
           Pop.toast(error, 'error')
         }

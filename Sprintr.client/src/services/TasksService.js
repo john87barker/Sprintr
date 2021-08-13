@@ -15,10 +15,11 @@ class TasksService {
     AppState.tasks = res.data
   }
 
-  async getTaskById(id) {
-    console.log(id)
-    const res = await api.get(`api/tasks/${id}`)
-    AppState.activeTask = res.data
+  async getAllTasksBySprintId(id) {
+    debugger
+    console.log(id, 'we are getting all tasks by sprint id')
+    const res = await api.get(`api/sprints/${id}/tasks`)
+    AppState.sprints = res.data
   }
 
   // async getTaskBySprintId(id) {
@@ -37,8 +38,17 @@ class TasksService {
   }
 
   async editTask(id, editedTask) {
-    console.log(editedTask, 'in the service')
-    const res = await api.put('api/tasks/' + id, editedTask)
+    console.log(id, editedTask, 'in the service')
+    // editedTask = task
+    const res = await api.put('api/tasks/' + id, { status: editedTask })
+
+    AppState.tasks = res.data
+  }
+
+  async editTaskBySprint(id, editedTask) {
+    console.log(id, editedTask, 'in the service')
+    // editedTask = task
+    const res = await api.put('api/tasks/' + id, { sprintId: editedTask })
 
     AppState.tasks = res.data
   }
