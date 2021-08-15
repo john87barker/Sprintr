@@ -36,22 +36,6 @@ export class NotesController extends BaseController {
     }
   }
 
-  // async getBySprint(req, res, next) {
-  //   try {
-
-  //   } catch (error) {
-
-  //   }
-  // }
-
-  // async getByBacklogId(req, res, next) {
-  //   try {
-
-  //   } catch (error) {
-
-  //   }
-  // }
-
   async create(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
@@ -76,8 +60,7 @@ export class NotesController extends BaseController {
   async destroy(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
-      await notesService.destroy(req.params.id)
-      res.send({ message: 'You deleted that ****!' })
+      res.send(await notesService.destroy(req.params.id, req.userInfo.id))
     } catch (error) {
       next(error, 'could not delete')
     }

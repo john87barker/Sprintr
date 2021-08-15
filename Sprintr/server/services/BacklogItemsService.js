@@ -33,9 +33,13 @@ class BacklogItemsService {
     return backlogItem
   }
 
-  async destroy(id) {
+  async destroy(id, userId) {
     await this.getOne(id)
-    return await dbContext.BacklogItem.findByIdAndDelete(id)
+    const deleted = await dbContext.BacklogItem.findOneAndDelete({ _id: id, creatorId: userId })
+    if (!deleted) {
+      throw new BadRequest('backlog not deleted')
+    }
+    return deleted
   }
 }
 export const backlogItemsService = new BacklogItemsService()

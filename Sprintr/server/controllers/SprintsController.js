@@ -71,8 +71,7 @@ export class SprintsController extends BaseController {
   async destroy(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
-      await sprintsService.destroy(req.params.id)
-      res.send({ message: 'You deleted that ****!' })
+      res.send(await sprintsService.destroy(req.params.id))
     } catch (error) {
       next(error, 'could not delete')
     }

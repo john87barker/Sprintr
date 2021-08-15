@@ -33,9 +33,13 @@ class SprintsService {
     return sprint
   }
 
-  async destroy(id) {
+  async destroy(id, userId) {
     await this.getOne(id)
-    return await dbContext.Sprint.findByIdAndDelete(id)
+    const deleted = await dbContext.Sprint.findOneAndDelete({ _id: id, creatorId: userId })
+    if (!deleted) {
+      throw new BadRequest('sprint was not deleted')
+    }
+    return deleted
   }
 }
 export const sprintsService = new SprintsService()

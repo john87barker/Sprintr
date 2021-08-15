@@ -40,6 +40,7 @@ export default {
     })
     onMounted(async() => {
       try {
+        debugger
         await projectsService.getAllProjects()
         console.log('In mounted at home page')
       } catch (error) {

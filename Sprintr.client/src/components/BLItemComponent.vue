@@ -17,8 +17,10 @@
             </div>
             <div class="p-1">
               <p>task weight: {{ t.weight }} </p>
+              Status: {{ t.status }}
               <br>
-              Status:{{ t.status }}
+              <br>
+              Change Status:
               <select v-model="state.selectedStatus" @change="logStatus(t.id)" class="pb-1 action">
                 <!-- inline object literal -->
                 <option v-for="s in status" :value="s.name" :key="s.id">

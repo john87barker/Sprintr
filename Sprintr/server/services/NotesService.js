@@ -37,9 +37,13 @@ class NotesService {
     return note
   }
 
-  async destroy(id) {
+  async destroy(id, userId) {
     await this.getOne(id)
-    return await dbContext.Note.findByIdAndDelete(id)
+    const deleted = await dbContext.Note.findOneAndDelete({ _id: id, creatorId: userId })
+    if (!deleted) {
+      throw new BadRequest('note was not deleted')
+    }
+    return deleted
   }
 }
 export const notesService = new NotesService()
